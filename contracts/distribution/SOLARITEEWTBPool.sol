@@ -598,7 +598,7 @@ contract LPTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    IERC20 public link = IERC20(0x514910771AF9Ca656af840dff83E8264EcF986CA);
+    IERC20 public ewtb = IERC20(0x178c820f862B14f316509ec36b13123DA19A6054);
 
     uint256 private _totalSupply;
     mapping(address => uint256) private _balances;
@@ -616,18 +616,18 @@ contract LPTokenWrapper {
         _totalSupply = _totalSupply.add(realamount);
         _balances[msg.sender] = _balances[msg.sender].add(realamount);
         address fundpool = 0x289026a9018D5AA8CB05f228dd9460C1229aaf81;
-        link.safeTransferFrom(msg.sender, address(this), realamount);
-        link.safeTransferFrom(msg.sender, fundpool, amount.div(100));
+        ewtb.safeTransferFrom(msg.sender, address(this), realamount);
+        ewtb.safeTransferFrom(msg.sender, fundpool, amount.div(100));
     }
 
     function withdraw(uint256 amount) public {
         _totalSupply = _totalSupply.sub(amount);
         _balances[msg.sender] = _balances[msg.sender].sub(amount);
-        link.safeTransfer(msg.sender, amount);
+        ewtb.safeTransfer(msg.sender, amount);
     }
 }
 
-contract SOLARITELINKPool is LPTokenWrapper, IRewardDistributionRecipient {
+contract SOLARITEEWTBPool is LPTokenWrapper, IRewardDistributionRecipient {
     IERC20 public solarite = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16); // need replace
     uint256 public constant DURATION = 2592000; // 30 days
 

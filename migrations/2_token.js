@@ -25,7 +25,7 @@ async function deployToken(deployer, network) {
       "SOLARITE",
       "SOLARITE",
       18,
-      "9000000000000000000000000", // print extra few mil for user
+      "200000000000000000000000", // print extra few mil for user
       SOLARITEImplementation.address,
       "0x"
     );
@@ -34,10 +34,9 @@ async function deployToken(deployer, network) {
       "SOLARITE",
       "SOLARITE",
       18,
-      "2000000000000000000000000",
+      "50000000000000000000000",
       SOLARITEImplementation.address,
       "0x"
     );
   }
-
 }

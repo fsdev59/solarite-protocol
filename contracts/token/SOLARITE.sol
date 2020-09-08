@@ -1,6 +1,5 @@
 pragma solidity 0.5.17;
 
-/* import "./SOLARITETokenInterface.sol"; */
 import "./SOLARITEGovernance.sol";
 
 contract SOLARITEToken is SOLARITEGovernanceToken {

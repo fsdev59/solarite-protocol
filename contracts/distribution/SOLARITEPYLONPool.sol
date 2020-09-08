@@ -593,12 +593,11 @@ interface SOLARITE {
 }
 
 
-
 contract LPTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    IERC20 public link = IERC20(0x514910771AF9Ca656af840dff83E8264EcF986CA);
+    IERC20 public pylon = IERC20(0xD7B7d3C0bdA57723Fb54ab95Fd8F9EA033AF37f2);
 
     uint256 private _totalSupply;
     mapping(address => uint256) private _balances;
@@ -616,18 +615,18 @@ contract LPTokenWrapper {
         _totalSupply = _totalSupply.add(realamount);
         _balances[msg.sender] = _balances[msg.sender].add(realamount);
         address fundpool = 0x289026a9018D5AA8CB05f228dd9460C1229aaf81;
-        link.safeTransferFrom(msg.sender, address(this), realamount);
-        link.safeTransferFrom(msg.sender, fundpool, amount.div(100));
+        pylon.safeTransferFrom(msg.sender, address(this), realamount);
+        pylon.safeTransferFrom(msg.sender, fundpool, amount.div(100));
     }
 
     function withdraw(uint256 amount) public {
         _totalSupply = _totalSupply.sub(amount);
         _balances[msg.sender] = _balances[msg.sender].sub(amount);
-        link.safeTransfer(msg.sender, amount);
+        pylon.safeTransfer(msg.sender, amount);
     }
 }
 
-contract SOLARITELINKPool is LPTokenWrapper, IRewardDistributionRecipient {
+contract SOLARITEPYLONPool is LPTokenWrapper, IRewardDistributionRecipient {
     IERC20 public solarite = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16); // need replace
     uint256 public constant DURATION = 2592000; // 30 days
 
@@ -644,7 +643,7 @@ contract SOLARITELINKPool is LPTokenWrapper, IRewardDistributionRecipient {
     event Withdrawn(address indexed user, uint256 amount);
     event RewardPaid(address indexed user, uint256 reward);
 
-    modifier checkStart() {
+    modifier checkStart(){
         require(block.timestamp >= starttime,"not start");
         _;
     }

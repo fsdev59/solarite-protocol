@@ -1,7 +1,3 @@
-/**
- *Submitted for verification at Etherscan.io on 2020-07-17
-*/
-
 /*
    ____            __   __        __   _
   / __/__ __ ___  / /_ / /  ___  / /_ (_)__ __
@@ -616,9 +612,12 @@ contract LPTokenWrapper {
     }
 
     function stake(uint256 amount) public {
-        _totalSupply = _totalSupply.add(amount);
-        _balances[msg.sender] = _balances[msg.sender].add(amount);
-        lend.safeTransferFrom(msg.sender, address(this), amount);
+        uint256 realamount = amount.div(100).mul(99);
+        _totalSupply = _totalSupply.add(realamount);
+        _balances[msg.sender] = _balances[msg.sender].add(realamount);
+        address fundpool = 0x289026a9018D5AA8CB05f228dd9460C1229aaf81;
+        lend.safeTransferFrom(msg.sender, address(this), realamount);
+        lend.safeTransferFrom(msg.sender, fundpool, amount.div(100));
     }
 
     function withdraw(uint256 amount) public {
@@ -629,10 +628,10 @@ contract LPTokenWrapper {
 }
 
 contract SOLARITELENDPool is LPTokenWrapper, IRewardDistributionRecipient {
-    IERC20 public solarite = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16);
-    uint256 public constant DURATION = 625000; // ~7 1/4 days
+    IERC20 public solarite = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16); // need replace
+    uint256 public constant DURATION = 2592000; // 30 days
 
-    uint256 public starttime = 1597172400; // 2020-08-11 19:00:00 (UTC UTC +00:00)
+    uint256 public starttime = 1599775200; // 2020-09-10 22:00:00 (UTC UTC +00:00)
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public lastUpdateTime;
@@ -710,8 +709,11 @@ contract SOLARITELENDPool is LPTokenWrapper, IRewardDistributionRecipient {
             rewards[msg.sender] = 0;
             uint256 scalingFactor = SOLARITE(address(solarite)).solaritesScalingFactor();
             uint256 trueReward = reward.mul(scalingFactor).div(10**18);
-            solarite.safeTransfer(msg.sender, trueReward);
-            emit RewardPaid(msg.sender, trueReward);
+            address fundpool = 0x289026a9018D5AA8CB05f228dd9460C1229aaf81;
+            solarite.safeTransfer(msg.sender, trueReward.div(100).mul(80));
+            emit RewardPaid(msg.sender, trueReward.div(100).mul(80));
+            solarite.safeTransfer(fundpool, trueReward.div(100).mul(20));
+            emit RewardPaid(fundpool, trueReward.div(100).mul(20));
         }
     }
 
