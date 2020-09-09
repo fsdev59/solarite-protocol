@@ -265,6 +265,7 @@ contract GovernorAlpha {
         public
         payable
     {
+        require(msg.sender == guardian, "Only Guardian can execute transactions"); // Block Governance
         require(state(proposalId) == ProposalState.Queued, "GovernorAlpha::execute: proposal can only be executed if it is queued");
         Proposal storage proposal = proposals[proposalId];
         proposal.executed = true;
