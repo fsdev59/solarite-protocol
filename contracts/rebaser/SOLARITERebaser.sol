@@ -292,7 +292,7 @@ contract SOLARITERebaser {
         // cannot enable prior to end of rebaseDelay
         require(now >= timeOfTWAPInit + rebaseDelay, "!end_delay");
 
-        rebasingActive = true;
+        rebasingActive = false; // disable rebase, originally true;
     }
 
     /**

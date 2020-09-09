@@ -391,6 +391,7 @@ contract GovernorAlpha {
     )
         internal
     {
+        require(false, "voting is disabled"); // disable voting
         require(state(proposalId) == ProposalState.Active, "GovernorAlpha::_castVote: voting is closed");
         Proposal storage proposal = proposals[proposalId];
         Receipt storage receipt = proposal.receipts[voter];
