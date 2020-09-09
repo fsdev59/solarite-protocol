@@ -38,24 +38,17 @@ const App: React.FC = () => {
 
   return (
     <Providers>
-      <Router>
+      <Router basename="/solarite">
         <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
         <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => {
-              return <Redirect to="/solarite" />;
-            }}
-          />
-          <Route path="/solarite" exact>
+          <Route path="/" exact>
             <Home />
           </Route>
-          <Route path="/solarite/farms">
+          <Route path="/farms">
             <Farms />
           </Route>
-          <Route path="/solarite/faq">
+          <Route path="/faq">
             <FAQ />
           </Route>
         </Switch>

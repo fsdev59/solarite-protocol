@@ -5,10 +5,10 @@ import { NavLink } from "react-router-dom";
 const Nav: React.FC = () => {
   return (
     <StyledNav>
-      <StyledLink exact activeClassName="active" to="/solarite">
+      <StyledLink exact activeClassName="active" to="/">
         Home
       </StyledLink>
-      <StyledLink exact activeClassName="active" to="/solarite/farms">
+      <StyledLink exact activeClassName="active" to="/farms">
         Farms
       </StyledLink>
     </StyledNav>
@@ -29,8 +29,9 @@ const StyledLink = styled(NavLink)`
   // color: ${(props) => props.theme.color.grey[400]};
   color: #868996;
   font-weight: 700;
-  padding-left: ${(props) => props.theme.spacing[3]}px;
-  padding-right: ${(props) => props.theme.spacing[3]}px;
+  padding: 12px 0;
+  padding-left: ${(props) => props.theme.spacing[4]}px;
+  padding-right: ${(props) => props.theme.spacing[4]}px;
   text-decoration: none;
   border-radius: 20px;
   margin: 0 5px;

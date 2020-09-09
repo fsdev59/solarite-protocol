@@ -20,6 +20,8 @@ import Separator from "../../Separator";
 import Spacer from "../../Spacer";
 import Value from "../../Value";
 
+import famerImg from "../../../assets/img/farmer.png";
+
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const { account, reset } = useWallet();
 
@@ -34,20 +36,22 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   return (
     <Modal>
       <ModalTitle text="My Account" />
-      <ModalContent>
-        <Spacer />
+      {/* <ModalContent>
+        <Spacer /> */}
 
-        <div style={{ display: "flex" }}>
-          <StyledBalanceWrapper>
-            <CardIcon>
-              <span>🍠</span>
-            </CardIcon>
-            <StyledBalance>
-              <Value value={getDisplayBalance(solariteV2Balance, 24)} />
-              <Label text="SOLARITEV2 Balance" />
-            </StyledBalance>
-          </StyledBalanceWrapper>
-        </div>
+      {/* <div style={{ display: "flex" }}> */}
+      <StyledBalanceWrapper>
+        <CardIcon>
+          <span>
+            <img src={famerImg} height="32" />
+          </span>
+        </CardIcon>
+        <StyledBalance>
+          <Value value={getDisplayBalance(solariteV2Balance, 24)} />
+          <Label text="SOLARITE Balance" />
+        </StyledBalance>
+      </StyledBalanceWrapper>
+      {/* </div>
 
         <Spacer />
         <Button
@@ -55,16 +59,16 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
           text="View on Etherscan"
           variant="secondary"
         />
-        <Spacer />
-        <Button
-          onClick={handleSignOutClick}
-          text="Sign out"
-          variant="secondary"
-        />
-      </ModalContent>
-      <ModalActions>
+        <Spacer /> */}
+      <Button
+        onClick={handleSignOutClick}
+        text="Sign out"
+        // variant="secondary"
+      />
+      {/* </ModalContent> */}
+      {/* <ModalActions>
         <Button onClick={onDismiss} text="Cancel" />
-      </ModalActions>
+      </ModalActions> */}
     </Modal>
   );
 };

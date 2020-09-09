@@ -41,6 +41,7 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 };
 
 const StyledAccountButton = styled.div`
+  position: relative;
   height: 100%;
   width: 156px;
   margin-right: 20px;
@@ -60,6 +61,9 @@ const StyledAccountButton = styled.div`
       border: none;
       color: white;
       padding-top: 10px;
+      position: absolute;
+      top: 5px;
+      left: 20px;
     }
   }
 `;
