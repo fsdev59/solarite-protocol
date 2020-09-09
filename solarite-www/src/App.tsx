@@ -1,43 +1,44 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-} from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
-import { UseWalletProvider } from 'use-wallet'
+  Redirect,
+} from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { UseWalletProvider } from "use-wallet";
 
-import DisclaimerModal from './components/DisclaimerModal'
-import MobileMenu from './components/MobileMenu'
-import TopBar from './components/TopBar'
+import DisclaimerModal from "./components/DisclaimerModal";
+import MobileMenu from "./components/MobileMenu";
+import TopBar from "./components/TopBar";
 
-import FarmsProvider from './contexts/Farms'
-import ModalsProvider from './contexts/Modals'
-import SolariteProvider from './contexts/SolariteProvider'
-import TransactionProvider from './contexts/Transactions'
+import FarmsProvider from "./contexts/Farms";
+import ModalsProvider from "./contexts/Modals";
+import SolariteProvider from "./contexts/SolariteProvider";
+import TransactionProvider from "./contexts/Transactions";
 
-import useModal from './hooks/useModal'
+import useModal from "./hooks/useModal";
 
-import FAQ from './views/FAQ'
-import Farms from './views/Farms'
-import Home from './views/Home'
+import FAQ from "./views/FAQ";
+import Farms from "./views/Farms";
+import Home from "./views/Home";
 
-import theme from './theme'
+import theme from "./theme";
 
 const App: React.FC = () => {
-  const [mobileMenu, setMobileMenu] = useState(false)
+  const [mobileMenu, setMobileMenu] = useState(false);
 
   const handleDismissMobileMenu = useCallback(() => {
-    setMobileMenu(false)
-  }, [setMobileMenu])
-  
+    setMobileMenu(false);
+  }, [setMobileMenu]);
+
   const handlePresentMobileMenu = useCallback(() => {
-    setMobileMenu(true)
-  }, [setMobileMenu])
+    setMobileMenu(true);
+  }, [setMobileMenu]);
 
   return (
     <Providers>
-      <Router>
+      <Router basename="/solarite">
         <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
         <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
         <Switch>
@@ -54,8 +55,8 @@ const App: React.FC = () => {
       </Router>
       <Disclaimer />
     </Providers>
-  )
-}
+  );
+};
 
 const Providers: React.FC = ({ children }) => {
   return (
@@ -63,41 +64,38 @@ const Providers: React.FC = ({ children }) => {
       <UseWalletProvider
         chainId={1}
         connectors={{
-          walletconnect: { rpcUrl: 'https://mainnet.eth.aragon.network/' },
+          walletconnect: { rpcUrl: "https://mainnet.eth.aragon.network/" },
         }}
       >
         <SolariteProvider>
           <TransactionProvider>
-              <FarmsProvider>
-                <ModalsProvider>
-                  {children}
-                </ModalsProvider>
-              </FarmsProvider>
+            <FarmsProvider>
+              <ModalsProvider>{children}</ModalsProvider>
+            </FarmsProvider>
           </TransactionProvider>
         </SolariteProvider>
       </UseWalletProvider>
     </ThemeProvider>
-  )
-}
+  );
+};
 
 const Disclaimer: React.FC = () => {
-
   const markSeen = useCallback(() => {
-    localStorage.setItem('disclaimer', 'seen')
-  }, [])
+    localStorage.setItem("disclaimer", "seen");
+  }, []);
 
-  const [onPresentDisclaimerModal] = useModal(<DisclaimerModal onConfirm={markSeen} />)
+  const [onPresentDisclaimerModal] = useModal(
+    <DisclaimerModal onConfirm={markSeen} />
+  );
 
   useEffect(() => {
-    const seenDisclaimer = localStorage.getItem('disclaimer')
+    const seenDisclaimer = localStorage.getItem("disclaimer");
     if (!seenDisclaimer) {
-      onPresentDisclaimerModal()
+      onPresentDisclaimerModal();
     }
-  }, [])
+  }, []);
 
-  return (
-    <div />
-  )
-}
+  return <div />;
+};
 
-export default App
+export default App;
