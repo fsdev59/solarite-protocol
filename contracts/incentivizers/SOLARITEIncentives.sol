@@ -597,7 +597,7 @@ contract LPTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    IERC20 public uni_lp = IERC20(0x2C7a51A357d5739C5C74Bf3C96816849d2c9F726);
+    IERC20 public uni_lp = IERC20(0x7bc3A77B1B8DAa4BF4b38c710119B932c5b27925);
 
     uint256 private _totalSupply;
 
@@ -636,7 +636,7 @@ contract SOLARITEIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
     IERC20 public solarite = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16);
     uint256 public constant DURATION = 2592000; // 30 days
 
-    uint256 public initreward = 5 * 10**4 * 10**18; // 50K
+    uint256 public initreward = 25 * 10**3 * 10**18; // 25K
     uint256 public starttime = 1599775200 + 2 hours; // 2020-09-11 00:00:00 (UTC UTC +00:00)
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
