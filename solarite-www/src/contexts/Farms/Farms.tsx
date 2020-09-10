@@ -40,18 +40,18 @@ import { Farm } from "./types";
 const NAME_FOR_POOL: { [key: string]: string } = {
   eth_pool: "Assimilator",
   comp_pool: "Cybernetics Core",
-  link_pool: 'Marine Gardens',
-  lend_pool: "Oracle",
-  snx_pool: "Robotics Facility",
+  link_pool: 'Marine Barracks',
+  lend_pool: "Lend Shark",
+  snx_pool: "Synthetix Silos",
   btc_pool: "Stargate",
   yalink_pool: "Templar Archives",
   ycrvUNIV_pool: "Twilight Council",
-  based_pool: "Assimilator",
-  ethpylonlp_pool: "Assimilator",
-  ewtb_pool: "Assimilator",
-  pylon_pool: "Assimilator",
-  ycrvpylonlp_pool: "Assimilator",
-  zombie_pool: "Assimilator",
+  based_pool: "All Your Based",
+  ethpylonlp_pool: "Ethereum Planes",
+  ewtb_pool: "Array",
+  pylon_pool: "Mirror Farm",
+  ycrvpylonlp_pool: "Beyond the Curve",
+  zombie_pool: "Zombie Graveyard",
 };
 
 const ICON_FOR_POOL: { [key: string]: string } = {
