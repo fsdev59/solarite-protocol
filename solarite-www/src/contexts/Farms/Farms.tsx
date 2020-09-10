@@ -110,8 +110,8 @@ const Farms: React.FC = ({ children }) => {
       let tokenKey = poolKey.replace("_pool", "");
       
       if (tokenKey === "ycrvUNIV") {
-        tokenKey = 'uni_lp'
-        //tokenKey = "";
+        //tokenKey = 'uni_lp'
+        tokenKey = "";
       }
 
       const method = pool.methods[tokenKey];
