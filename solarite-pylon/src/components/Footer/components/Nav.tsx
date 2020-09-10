@@ -4,13 +4,13 @@ import styled from "styled-components";
 const Nav: React.FC = () => {
   return (
     <StyledNav>
-      <StyledLink href="https://discord.gg/m5zSFsA">
+      <StyledLink href="https://discord.gg/nKKhBbk">
         <StyledLinkIcon src={require("../../../assets/img/discord.png")} />
       </StyledLink>
-      <StyledLink href="https://twitter.com/Pylonfinance">
+      <StyledLink href="https://twitter.com/solaritefinance">
         <StyledLinkIcon src={require("../../../assets/img/twitter.png")} />
       </StyledLink>
-      <StyledLink href="https://t.me/pylonfinance">
+      <StyledLink href="https://t.me/solaritefinance">
         <StyledLinkIcon src={require("../../../assets/img/telegram.png")} />
       </StyledLink>
     </StyledNav>
