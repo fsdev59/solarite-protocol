@@ -13,26 +13,26 @@ import Context from "./context";
 import { Farm } from "./types";
 
 const NAME_FOR_POOL: { [key: string]: string } = {
-  yfi_pool: "Twilight Council",
-  eth_pool: "Photon Cannon",
-  ampl_pool: "Shield Battery",
-  ycrv_pool: "Fleet Beacon",
+  yfi_pool: "Assimilator",
+  eth_pool: "Cybernetics Core",
+  ampl_pool: "Forge",
+  ycrv_pool: "Oracle",
   comp_pool: "Robotics Facility",
-  link_pool: "Marine Gardens",
-  lend_pool: "Gateway",
-  snx_pool: "Nexus",
+  link_pool: "Stargate",
+  lend_pool: "Templar Archives",
+  snx_pool: "Warp Gate",
   mkr_pool: "Twilight Council",
 };
 
 const ICON_FOR_POOL: { [key: string]: string } = {
-  yfi_pool: "twilight_council.png",
-  eth_pool: "photon_cannon.png",
-  ampl_pool: "shield_battery.png",
-  comp_pool: "fleet_beacon.png",
-  link_pool: "robotics_facility.png",
-  lend_pool: "fleet_beacon.png",
-  snx_pool: "gateway.png",
-  mkr_pool: "nexus.png",
+  yfi_pool: "Icon_Protoss_Assimilator.png",
+  eth_pool: "Icon_Protoss_Cybernetics_Core.png",
+  ampl_pool: "Icon_Protoss_Forge.png",
+  comp_pool: "Icon_Protoss_Oracle.png",
+  link_pool: "Icon_Protoss_Robotics_Facility.png",
+  lend_pool: "Icon_Protoss_Stargate.png",
+  snx_pool: "Icon_Protoss_Templar_Archives.png",
+  mkr_pool: "Icon_Protoss_Warp_Gate.png",
   ycrv_pool: "twilight_council.png",
 };
 
