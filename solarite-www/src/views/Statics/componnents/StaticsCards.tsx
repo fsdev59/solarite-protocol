@@ -2,47 +2,47 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { ChainId, Token, WETH, Fetcher, Route } from "@uniswap/sdk";
 import Web3 from "web3";
-import usePylon from "../../../hooks/usePylon";
+import useSolarite from "../../../hooks/useSolarite";
 
 import Card from "../../../components/Card";
 import CardContent from "../../../components/CardContent";
 import Loader from "../../../components/Loader";
 import useFarms from "../../../hooks/useFarms";
 import { Farm } from "../../../contexts/Farms";
-import { getPoolStartTime } from "../../../pylonUtils";
+import { getPoolStartTime } from "../../../solariteUtils";
 import { getDisplayBalance } from "../../../utils/formatBalance";
 import { getStats } from "../../../views/Home/utils";
 import { OverviewData } from "../../../views/Home/types";
-import { Pylon } from "../../../pylon";
+import { Solarite } from "../../../solarite";
 import BigNumber from "bignumber.js";
-export interface PylonContext {
-  pylon?: typeof Pylon;
+export interface SolariteContext {
+  solarite?: typeof Solarite;
 }
 
 const ADDRESS = "0xD7B7d3C0bdA57723Fb54ab95Fd8F9EA033AF37f2";
 let currentPrice = 0;
-let pylon: any;
+let solarite: any;
 const FarmCards: React.FC = () => {
   const [farms] = useFarms();
-  pylon = usePylon();
+  solarite = useSolarite();
   const [
     { circSupply, curPrice, nextRebase, targetPrice, totalSupply },
     setStats,
   ] = useState<OverviewData>({});
 
   const fetchStats = useCallback(async () => {
-    const statsData = await getStats(pylon);
+    const statsData = await getStats(solarite);
     setStats(statsData);
     currentPrice = parseFloat(
       getDisplayBalance(new BigNumber(statsData.curPrice))
     );
-  }, [pylon, setStats]);
+  }, [solarite, setStats]);
 
   useEffect(() => {
-    if (pylon) {
+    if (solarite) {
       fetchStats();
     }
-  }, [pylon]);
+  }, [solarite]);
 
   const priceBlock = () => {
     return <TitleView>Current price: ${currentPrice}</TitleView>;
@@ -84,7 +84,7 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
   // price = 5000;
 
   const getData = useCallback(async () => {
-    const selfAddress = pylon.web3.currentProvider.selectedAddress;
+    const selfAddress = solarite.web3.currentProvider.selectedAddress;
     const token = farm.depositToken;
     let ah: any = {
       weth: "eth_pool",
@@ -94,27 +94,27 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
     };
     let key = ah[token] || `${token}_pool`;
 
-    const STAKING_POOL = pylon.contracts[key];
+    const STAKING_POOL = solarite.contracts[key];
     console.log(token);
     const Token =
       token === "link"
-        ? pylon.contracts["yalink"]
+        ? solarite.contracts["yalink"]
         : token === "uni_lp"
-        ? pylon.contracts["ycrvUNIV"]
+        ? solarite.contracts["ycrvUNIV"]
         : token === "wbtc"
-        ? pylon.contracts["btc"]
-        : pylon.contracts[token];
-    const PYLON_TOKEN = pylon.contracts.pylon;
-    console.log("p", PYLON_TOKEN);
-    const rewardTokenTicker = "PYLON";
+        ? solarite.contracts["btc"]
+        : solarite.contracts[token];
+    const SOLARITE_TOKEN = solarite.contracts.solarite;
+    console.log("p", SOLARITE_TOKEN);
+    const rewardTokenTicker = "SOLARITE";
     const stakingTokenTicker = token;
-    const pylonScale =
-      (await PYLON_TOKEN.methods.pylonsScalingFactor().call()) / 1e18;
+    const solariteScale =
+      (await SOLARITE_TOKEN.methods.solaritesScalingFactor().call()) / 1e18;
     const rewardPoolAddr = STAKING_POOL._address;
     const amount =
       (await STAKING_POOL.methods.balanceOf(selfAddress).call()) / 1e18;
     const earned =
-      (pylonScale * (await STAKING_POOL.methods.earned(selfAddress).call())) /
+      (solariteScale * (await STAKING_POOL.methods.earned(selfAddress).call())) /
       1e18;
     console.log(Token);
     const totalSupply = (await Token.methods.totalSupply().call()) / 1e18;
@@ -124,7 +124,7 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
 
     const weekly_reward =
       (Math.round((await STAKING_POOL.methods.rewardRate().call()) * 604800) *
-        pylonScale) /
+        solariteScale) /
       1e18;
 
     console.log("st", STAKING_POOL);
@@ -144,7 +144,7 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
       lend: ["ethlend"],
       uni_lp: ["curve-fi-ydai-yusdc-yusdt-ytusd"],
       wbtc: ["wrapped-bitcoin"],
-      pylon: ["pylon-finance"],
+      solarite: ["solarite-finance"],
     };
     let stakingTokenPrice = 1;
 
@@ -156,7 +156,7 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
       stakingTokenPrice = parseFloat(data.toString());
       // if(token == 'yfi') debugger;
 
-      let da = await lookUpPrices(hash["pylon"]);
+      let da = await lookUpPrices(hash["solarite"]);
       let dataA: any = Object.values(da[0] || da)[0];
       dataA = data.usd || dataA;
       console.log(dataA);
@@ -166,18 +166,18 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
       if (token === "uni_lp") {
         const UNI_TOKEN_ADDR = "0xEbC1E9a5D9E2FB9e5c5981b12D2062512D2847BE";
         const totalyCRVInUniswapPair =
-          (await pylon.contracts["ycrv"].methods
+          (await solarite.contracts["ycrv"].methods
             .balanceOf(UNI_TOKEN_ADDR)
             .call()) / 1e18;
-        const totalPYLONInUniswapPair =
-          (await PYLON_TOKEN.methods.balanceOf(UNI_TOKEN_ADDR).call()) / 1e18;
+        const totalSOLARITEInUniswapPair =
+          (await SOLARITE_TOKEN.methods.balanceOf(UNI_TOKEN_ADDR).call()) / 1e18;
         let yCRVPrice = stakingTokenPrice;
         const totalSupplyOfStakingToken =
-          (await pylon.contracts["ycrvUNIV"].methods.totalSupply().call()) /
+          (await solarite.contracts["ycrvUNIV"].methods.totalSupply().call()) /
           1e18;
         stakingTokenPrice =
           (yCRVPrice * totalyCRVInUniswapPair +
-            price * totalPYLONInUniswapPair) /
+            price * totalSOLARITEInUniswapPair) /
           totalSupplyOfStakingToken;
       }
     }

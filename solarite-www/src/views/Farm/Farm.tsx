@@ -65,24 +65,24 @@ const Farm: React.FC = () => {
     );
   };
 
-  const PylonNotify = (token: String) => {
-    // if (token != "pylon")
+  const SolariteNotify = (token: String) => {
+    // if (token != "solarite")
     return "";
     // return (
-    //   <PylonNotifyView>
-    //     <p> Farm is good, but don't forget migration your PYLON before Migration Deadline. </p>
+    //   <SolariteNotifyView>
+    //     <p> Farm is good, but don't forget migration your SOLARITE before Migration Deadline. </p>
     //     <p>
-    //       <a href='https://pylon.finance/'>https://pylon.finance/</a>
+    //       <a href='https://solarite.finance/'>https://solarite.finance/</a>
     //     </p>
     //     {countdownBlock()}
-    //   </PylonNotifyView>
+    //   </SolariteNotifyView>
     // )
   };
 
   const lpPoolTips = (token: String) => {
     if (token != "uni_lp") return "";
     return (
-      <PylonNotifyView>
+      <SolariteNotifyView>
         <p>
           If you want Add liquidity to Uniswap, please use this{" "}
           <a href="https://app.uniswap.org/#/add/0xD7B7d3C0bdA57723Fb54ab95Fd8F9EA033AF37f2/0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8">
@@ -90,7 +90,7 @@ const Farm: React.FC = () => {
           </a>
           .
         </p>
-      </PylonNotifyView>
+      </SolariteNotifyView>
     );
   };
 
@@ -103,7 +103,7 @@ const Farm: React.FC = () => {
         } and earn ${earnTokenName}`}
         title={name}
       />
-      {PylonNotify(depositToken)}
+      {SolariteNotify(depositToken)}
       <StyledFarm>
         {lpPoolTips(depositToken)}
         <StyledCardsWrapper>
@@ -168,7 +168,7 @@ const CountdownView = styled.div`
   margin-bottom: 20px;
 `;
 
-const PylonNotifyView = styled.div`
+const SolariteNotifyView = styled.div`
   text-align: center;
   color: #555;
 `;

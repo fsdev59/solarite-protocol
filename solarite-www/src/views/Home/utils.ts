@@ -1,4 +1,4 @@
-import { Pylon } from '../../pylon'
+import { Solarite } from '../../solarite'
 
 import {
   getCurrentPrice as gCP,
@@ -6,40 +6,40 @@ import {
   getCirculatingSupply as gCS,
   getNextRebaseTimestamp as gNRT,
   getTotalSupply as gTS,
-} from '../../pylonUtils'
+} from '../../solariteUtils'
 
-const getCurrentPrice = async (pylon: typeof Pylon): Promise<number> => {
-  // FORBROCK: get current PYLON price
-  return gCP(pylon)
+const getCurrentPrice = async (solarite: typeof Solarite): Promise<number> => {
+  // FORBROCK: get current SOLARITE price
+  return gCP(solarite)
 }
 
-const getTargetPrice = async (pylon: typeof Pylon): Promise<number> => {
-  // FORBROCK: get target PYLON price
-  return gTP(pylon)
+const getTargetPrice = async (solarite: typeof Solarite): Promise<number> => {
+  // FORBROCK: get target SOLARITE price
+  return gTP(solarite)
 }
 
-const getCirculatingSupply = async (pylon: typeof Pylon): Promise<string> => {
+const getCirculatingSupply = async (solarite: typeof Solarite): Promise<string> => {
   // FORBROCK: get circulating supply
-  return gCS(pylon)
+  return gCS(solarite)
 }
 
-const getNextRebaseTimestamp = async (pylon: typeof Pylon): Promise<number> => {
+const getNextRebaseTimestamp = async (solarite: typeof Solarite): Promise<number> => {
   // FORBROCK: get next rebase timestamp
-  const nextRebase = await gNRT(pylon) as number
+  const nextRebase = await gNRT(solarite) as number
   return nextRebase * 1000
 }
 
-const getTotalSupply = async (pylon: typeof Pylon): Promise<string> => {
+const getTotalSupply = async (solarite: typeof Solarite): Promise<string> => {
   // FORBROCK: get total supply
-  return gTS(pylon)
+  return gTS(solarite)
 }
 
-export const getStats = async (pylon: typeof Pylon) => {
-  const curPrice = await getCurrentPrice(pylon)
-  const circSupply = await getCirculatingSupply(pylon)
-  const nextRebase = await getNextRebaseTimestamp(pylon)
-  const targetPrice = await getTargetPrice(pylon)
-  const totalSupply = await getTotalSupply(pylon)
+export const getStats = async (solarite: typeof Solarite) => {
+  const curPrice = await getCurrentPrice(solarite)
+  const circSupply = await getCirculatingSupply(solarite)
+  const nextRebase = await getNextRebaseTimestamp(solarite)
+  const targetPrice = await getTargetPrice(solarite)
+  const totalSupply = await getTotalSupply(solarite)
   return {
     circSupply,
     curPrice,

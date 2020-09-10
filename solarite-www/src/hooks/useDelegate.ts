@@ -2,15 +2,15 @@ import { useCallback } from 'react'
 
 import { useWallet } from 'use-wallet'
 
-import { delegate } from '../pylonUtils'
-import usePylon from './usePylon'
+import { delegate } from '../solariteUtils'
+import useSolarite from './useSolarite'
 
 const useDelegate = (address?: string) => {
   const { account } = useWallet()
-  const pylon = usePylon()
+  const solarite = useSolarite()
 
   const handleDelegate = useCallback(async () => {
-    const txHash = await delegate(pylon ,address || account, account)
+    const txHash = await delegate(solarite ,address || account, account)
     console.log(txHash)
   }, [account, address])
 

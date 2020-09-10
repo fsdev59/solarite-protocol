@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { Contract } from "web3-eth-contract";
 
-import { pylon as pylonAddress } from "../../constants/tokenAddresses";
-import usePylon from "../../hooks/usePylon";
-import { getPoolContracts } from "../../pylonUtils";
+import { solarite as solariteAddress } from "../../constants/tokenAddresses";
+import useSolarite from "../../hooks/useSolarite";
+import { getPoolContracts } from "../../solariteUtils";
 
 import Context from "./context";
 import { Farm } from "./types";
@@ -82,10 +82,10 @@ const ICON_FOR_POOL: { [key: string]: string } = {
 
 const Farms: React.FC = ({ children }) => {
   const [farms, setFarms] = useState<Farm[]>([]);
-  const pylon = usePylon();
+  const solarite = useSolarite();
 
   const fetchPools = useCallback(async () => {
-    const pools: { [key: string]: Contract } = await getPoolContracts(pylon);
+    const pools: { [key: string]: Contract } = await getPoolContracts(solarite);
 
     const farmsArr: Farm[] = [];
     const poolKeys = Object.keys(pools);
@@ -122,8 +122,8 @@ const Farms: React.FC = ({ children }) => {
             name: NAME_FOR_POOL[poolKey],
             depositToken: tokenKey,
             depositTokenAddress: tokenAddress,
-            earnToken: "pylon",
-            earnTokenAddress: pylonAddress,
+            earnToken: "solarite",
+            earnTokenAddress: solariteAddress,
             icon: ICON_FOR_POOL[poolKey],
             id: tokenKey,
           });
@@ -133,13 +133,13 @@ const Farms: React.FC = ({ children }) => {
       }
     }
     setFarms(farmsArr);
-  }, [pylon, setFarms]);
+  }, [solarite, setFarms]);
 
   useEffect(() => {
-    if (pylon) {
+    if (solarite) {
       fetchPools();
     }
-  }, [pylon, fetchPools]);
+  }, [solarite, fetchPools]);
 
   return <Context.Provider value={{ farms }}>{children}</Context.Provider>;
 };

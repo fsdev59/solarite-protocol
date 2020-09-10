@@ -6,7 +6,7 @@ import Countdown from 'react-countdown';
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 
-import usePylon from '../../hooks/usePylon'
+import useSolarite from '../../hooks/useSolarite'
 
 import Rebase from './components/Rebase'
 import Stats from './components/Stats'
@@ -16,7 +16,7 @@ import { getStats } from './utils'
 
 const Home: React.FC = () => {
 
-  const pylon = usePylon()
+  const solarite = useSolarite()
   const [{
     circSupply,
     curPrice,
@@ -26,15 +26,15 @@ const Home: React.FC = () => {
   }, setStats] = useState<OverviewData>({})
 
   const fetchStats = useCallback(async () => {
-    const statsData = await getStats(pylon)
+    const statsData = await getStats(solarite)
     setStats(statsData)
-  }, [pylon, setStats])
+  }, [solarite, setStats])
 
   useEffect(() => {
-    if (pylon) {
+    if (solarite) {
       fetchStats()
     }
-  }, [pylon])
+  }, [solarite])
 
   const countdownBlock = () => {
     const date = Date.parse("2020-08-20T00:00:00+0000");
@@ -50,7 +50,7 @@ const Home: React.FC = () => {
     <Page>
       {/* {countdownBlock()} */}
 
-      <PageHeader icon="" subtitle="PYLON" title="A NEW ERA OF DEFI" />
+      <PageHeader icon="" subtitle="SOLARITE" title="A NEW ERA OF DEFI" />
 
       <StyledOverview>
         {/* <Rebase nextRebase={nextRebase} /> */}

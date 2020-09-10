@@ -1,19 +1,19 @@
 import { useCallback } from 'react'
 
 import { useWallet } from 'use-wallet'
-import { Pylon } from '../pylon'
-import { rebase } from '../pylonUtils'
+import { Solarite } from '../solarite'
+import { rebase } from '../solariteUtils'
 
-import usePylon from '../hooks/usePylon'
+import useSolarite from '../hooks/useSolarite'
 
 const useRebase = () => {
   const { account } = useWallet()
-  const pylon = usePylon()
+  const solarite = useSolarite()
 
   const handleRebase = useCallback(async () => {
-    const txHash = await rebase(pylon, account)
+    const txHash = await rebase(solarite, account)
     console.log(txHash)
-  }, [account, pylon])
+  }, [account, solarite])
 
   return { onRebase: handleRebase }
 }

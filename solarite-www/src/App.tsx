@@ -14,7 +14,7 @@ import TopBar from "./components/TopBar";
 import ProposalsProvider from "./contexts/Proposals";
 import FarmsProvider from "./contexts/Farms";
 import ModalsProvider from "./contexts/Modals";
-import PylonProvider from "./contexts/PylonProvider";
+import SolariteProvider from "./contexts/SolariteProvider";
 import TransactionProvider from "./contexts/Transactions";
 
 import Farms from "./views/Farms";
@@ -43,7 +43,7 @@ const App: React.FC = () => {
             exact
             path="/"
             render={() => {
-              return <Redirect to="/pylon" />;
+              return <Redirect to="/solarite" />;
             }}
           /> */}
           <Route path="/" exact>
@@ -68,7 +68,7 @@ const Providers: React.FC = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <UseWalletProvider chainId={1}>
-        <PylonProvider>
+        <SolariteProvider>
           <TransactionProvider>
             <ModalsProvider>
               <FarmsProvider>
@@ -76,7 +76,7 @@ const Providers: React.FC = ({ children }) => {
               </FarmsProvider>
             </ModalsProvider>
           </TransactionProvider>
-        </PylonProvider>
+        </SolariteProvider>
       </UseWalletProvider>
     </ThemeProvider>
   );

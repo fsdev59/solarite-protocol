@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 
-import { pylon as pylonAddress } from "../../../constants/tokenAddresses";
+import { solarite as solariteAddress } from "../../../constants/tokenAddresses";
 import useTokenBalance from "../../../hooks/useTokenBalance";
 import { getDisplayBalance } from "../../../utils/formatBalance";
 
-import { getCurrentVotes, getProposalThreshold } from "../../../pylonUtils";
-import usePylon from "../../../hooks/usePylon";
+import { getCurrentVotes, getProposalThreshold } from "../../../solariteUtils";
+import useSolarite from "../../../hooks/useSolarite";
 import useDelegate from "../../../hooks/useDelegate";
 import { useWallet } from "use-wallet";
 
@@ -22,7 +22,7 @@ import famerImg from "../../../assets/img/farmer.png";
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const { account } = useWallet();
-  const pylon = usePylon();
+  const solarite = useSolarite();
 
   const [votes, setvotes] = useState("");
   const [devsVotes, setdevsVotes] = useState("");
@@ -39,25 +39,25 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
     "0x57d97B3Df6D349622d38B6D297b2bFa2D7d15Ec1"
   ).onDelegate;
 
-  const pylonBalance = useTokenBalance(pylonAddress);
+  const solariteBalance = useTokenBalance(solariteAddress);
   const displayBalance = useMemo(() => {
-    return getDisplayBalance(pylonBalance);
-  }, [pylonBalance]);
+    return getDisplayBalance(solariteBalance);
+  }, [solariteBalance]);
 
   // const fetchVotes = useCallback(async () => {
-  //   const votes = await getCurrentVotes(pylon, account)
-  //   const devsVotes = await getCurrentVotes(pylon, "0x57d97B3Df6D349622d38B6D297b2bFa2D7d15Ec1")
-  //   const proposalThreshold = await getProposalThreshold(pylon);
+  //   const votes = await getCurrentVotes(solarite, account)
+  //   const devsVotes = await getCurrentVotes(solarite, "0x57d97B3Df6D349622d38B6D297b2bFa2D7d15Ec1")
+  //   const proposalThreshold = await getProposalThreshold(solarite);
   //   setvotes(getDisplayBalance(votes))
   //   setdevsVotes(getDisplayBalance(devsVotes))
   //   setProposalThreshold(getDisplayBalance(proposalThreshold))
-  // }, [account, pylon])
+  // }, [account, solarite])
 
   // useEffect(() => {
-  //   if (pylon) {
+  //   if (solarite) {
   //     fetchVotes()
   //   }
-  // }, [fetchVotes, pylon])
+  // }, [fetchVotes, solarite])
 
   return (
     <Modal>

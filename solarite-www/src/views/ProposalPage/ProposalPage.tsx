@@ -12,15 +12,15 @@ import Card from '../../components/Card'
 import CardContent from '../../components/CardContent'
 import Spacer from '../../components/Spacer'
 
-import usePylon from '../../hooks/usePylon'
+import useSolarite from '../../hooks/useSolarite'
 
 import { getDisplayBalance } from '../../utils/formatBalance'
 
-import { getProposal, getQuorumVotes, getProposalStatus, castVote } from '../../pylonUtils'
+import { getProposal, getQuorumVotes, getProposalStatus, castVote } from '../../solariteUtils'
 
 import { Proposal, ProposalStatus } from '../../contexts/Proposals'
 
-import {PROPOSALSTATUSCODE} from '../../pylon/lib/constants'
+import {PROPOSALSTATUSCODE} from '../../solarite/lib/constants'
 
 
 const METER_TOTAL = 80000
@@ -30,41 +30,41 @@ const ProposalPage: React.FC = () => {
   const [proposal, setProposal] =  useState<Proposal>({} as Proposal)
   const [{forVotes, againstVotes, quorumVotes, totalVotes}, setVotes] = useState({forVotes:0, againstVotes:0, totalVotes:0, quorumVotes:0})
   const { account } = useWallet()
-  const pylon = usePylon()
+  const solarite = useSolarite()
 
 
   const handleVoteForClick = useCallback(() => {
-    castVote(pylon, proposal.id, true, account )
-  }, [account, pylon, proposal.id])
+    castVote(solarite, proposal.id, true, account )
+  }, [account, solarite, proposal.id])
 
   const handleVoteAgainstClick = useCallback(() => {
-    castVote(pylon, proposal.id, false, account )
-  }, [account, pylon, proposal.id])
+    castVote(solarite, proposal.id, false, account )
+  }, [account, solarite, proposal.id])
 
   const fetchProposal = useCallback(async () => {
-    const proposal = await getProposal(pylon, proposalId)
+    const proposal = await getProposal(solarite, proposalId)
     setProposal(proposal)
-  }, [pylon, proposalId])
+  }, [solarite, proposalId])
 
   const fetchVotes = useCallback(async () => {
-    const proposalStatus:ProposalStatus = await getProposalStatus(pylon, proposalId)
+    const proposalStatus:ProposalStatus = await getProposalStatus(solarite, proposalId)
     const forVotes = new BigNumber(proposalStatus.forVotes).div(10**6)
     const againstVotes = new BigNumber(proposalStatus.againstVotes).div(10**6)
-    const quorumCount = await getQuorumVotes(pylon)
+    const quorumCount = await getQuorumVotes(solarite)
     setVotes({
       forVotes: Number(getDisplayBalance(forVotes)),
       againstVotes: Number(getDisplayBalance(againstVotes)),
       totalVotes: Number(getDisplayBalance(forVotes.plus(againstVotes))),
       quorumVotes: Number(getDisplayBalance(quorumCount))
     })
-  }, [pylon, proposalId])
+  }, [solarite, proposalId])
 
   useEffect(() => {
-    if (pylon) {
+    if (solarite) {
       fetchProposal()
       fetchVotes()
     }
-  }, [fetchProposal, fetchVotes, pylon])
+  }, [fetchProposal, fetchVotes, solarite])
 
   return (
     <Card>

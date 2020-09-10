@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 
-import usePylon from '../../hooks/usePylon'
-import { getProposals } from '../../pylonUtils'
+import useSolarite from '../../hooks/useSolarite'
+import { getProposals } from '../../solariteUtils'
 
 import Context from './context'
 import { Proposal } from './types'
@@ -10,19 +10,19 @@ import { Proposal } from './types'
 const Proposals: React.FC = ({ children }) => {
 
   const [proposals, setProposals] = useState<Proposal[]>([])
-  const pylon = usePylon()
+  const solarite = useSolarite()
   
   const fetchProposals = useCallback(async () => {
-    const propsArr: Proposal[] = await getProposals(pylon)
+    const propsArr: Proposal[] = await getProposals(solarite)
 
     setProposals(propsArr)
-  }, [pylon, setProposals])
+  }, [solarite, setProposals])
 
   useEffect(() => {
-    if (pylon) {
+    if (solarite) {
       fetchProposals()
     }
-  }, [pylon, fetchProposals])
+  }, [solarite, fetchProposals])
 
   return (
     <Context.Provider value={{ proposals }}>
