@@ -12,6 +12,7 @@ interface ButtonProps {
   text?: string;
   to?: string;
   variant?: "default" | "secondary" | "tertiary";
+  borderImage?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -23,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   text,
   to,
   variant,
+  borderImage,
 }) => {
   const { color, spacing } = useContext(ThemeContext);
 
@@ -87,6 +89,7 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       padding={buttonPadding}
       size={buttonSize}
+      borderImage={borderImage}
     >
       {children}
       {ButtonChild}
@@ -101,6 +104,7 @@ interface StyledButtonProps {
   fontSize: number;
   padding: number;
   size: number;
+  borderImage: boolean;
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -109,8 +113,20 @@ const StyledButton = styled.button<StyledButtonProps>`
   background-color: #f79250;
   color: #f0f1f5;
   border-radius: 20px;
+  // background-color: ${(props) => props.theme.color.grey[200]};
+  // border: 1px solid rgba(153, 102, 0, 0.6);
+  // border-radius: 1px;
+  /* box-shadow: ${(props) => props.boxShadow}; */
+  // background-image: linear-gradient(
+  //   180deg,
+  //   rgba(0, 0, 0, 0.9),
+  //   rgba(102, 68, 0, 0.9)
+  // );
+  // color: ${(props) => (!props.disabled ? props.color : `${props.color}55`)};
   cursor: pointer;
   display: flex;
+  font-size: ${(props) => props.fontSize}px;
+  font-weight: 700;
   height: ${(props) => props.size}px;
   justify-content: center;
   outline: none;
@@ -119,11 +135,27 @@ const StyledButton = styled.button<StyledButtonProps>`
   pointer-events: ${(props) => (!props.disabled ? undefined : "none")};
   width: 100%;
   &:hover {
+    // background-color: ${(props) => props.theme.color.grey[100]};
     background-color: #c2713c;
   }
   &:active {
     opacity: 0.8;
     transform: perspective(500px) translateZ(-10px);
+  }
+  ::after {
+    content: ${(props) => (props.borderImage ? "''" : "")};
+    border-style: solid;
+    border-width: 17px 60px;
+    border-image: url(${require("../../assets/img/border-yellow.png")}) 17 60
+      repeat;
+    border-image-outset: 14px;
+    bottom: 0;
+    display: block;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 `;
 

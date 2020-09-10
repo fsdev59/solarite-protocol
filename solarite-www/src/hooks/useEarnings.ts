@@ -4,24 +4,24 @@ import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
 import { Contract } from "web3-eth-contract"
 
-import { getEarned } from '../solariteUtils'
-import useSolarite from './useSolarite'
+import { getEarned } from '../pylonUtils'
+import usePylon from './usePylon'
 
 const useEarnings = (pool: Contract) => {
   const [balance, setBalance] = useState(new BigNumber(0))
   const { account }: { account: string } = useWallet()
-  const solarite = useSolarite()
+  const pylon = usePylon()
 
   const fetchBalance = useCallback(async () => {
-    const balance = await getEarned(solarite, pool, account)
+    const balance = await getEarned(pylon, pool, account)
     setBalance(new BigNumber(balance))
-  }, [account, pool, solarite])
+  }, [account, pool, pylon])
 
   useEffect(() => {
-    if (account && pool && solarite) {
+    if (account && pool && pylon) {
       fetchBalance()
     }
-  }, [account, pool, setBalance, solarite])
+  }, [account, pool, setBalance, pylon])
 
   return balance
 }

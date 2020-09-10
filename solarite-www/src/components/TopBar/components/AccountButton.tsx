@@ -1,12 +1,12 @@
-import React, { useCallback } from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 
 import { useWallet } from "use-wallet";
 
 import useModal from "../../../hooks/useModal";
+import { formatAddress } from "../../../utils";
 
 import Button from "../../Button";
-import WalletProviderModal from "../../WalletProviderModal";
 
 import AccountModal from "./AccountModal";
 
@@ -14,22 +14,14 @@ interface AccountButtonProps {}
 
 const AccountButton: React.FC<AccountButtonProps> = (props) => {
   const [onPresentAccountModal] = useModal(<AccountModal />);
-  const [onPresentWalletProviderModal] = useModal(
-    <WalletProviderModal />,
-    "provider"
-  );
 
-  const { account } = useWallet();
-
-  const handleUnlockClick = useCallback(() => {
-    onPresentWalletProviderModal();
-  }, [onPresentWalletProviderModal]);
+  const { account, connect } = useWallet();
 
   return (
     <StyledAccountButton>
       {!account ? (
         <Button
-          onClick={handleUnlockClick}
+          onClick={() => connect("injected")}
           size="sm"
           text="CONNECT TO A WALLET"
         />
@@ -41,7 +33,6 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 };
 
 const StyledAccountButton = styled.div`
-  position: relative;
   height: 100%;
   width: 156px;
   margin-right: 20px;
@@ -61,9 +52,6 @@ const StyledAccountButton = styled.div`
       border: none;
       color: white;
       padding-top: 10px;
-      position: absolute;
-      top: 5px;
-      left: 20px;
     }
   }
 `;

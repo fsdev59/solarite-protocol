@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 import Footer from "../Footer";
-import TopBar from "../TopBar";
 
 const Page: React.FC = ({ children }) => (
   <StyledPage>

@@ -1,74 +1,108 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { useWallet } from "use-wallet";
 
-import {
-  solarite as solariteAddress,
-  solaritev2 as solariteV2Address,
-} from "../../../constants/tokenAddresses";
+import { pylon as pylonAddress } from "../../../constants/tokenAddresses";
 import useTokenBalance from "../../../hooks/useTokenBalance";
 import { getDisplayBalance } from "../../../utils/formatBalance";
 
+import { getCurrentVotes, getProposalThreshold } from "../../../pylonUtils";
+import usePylon from "../../../hooks/usePylon";
+import useDelegate from "../../../hooks/useDelegate";
+import { useWallet } from "use-wallet";
+
 import Button from "../../Button";
 import CardIcon from "../../CardIcon";
+import IconButton from "../../IconButton";
+import { AddIcon, RemoveIcon } from "../../icons";
 import Label from "../../Label";
 import Modal, { ModalProps } from "../../Modal";
-import ModalActions from "../../ModalActions";
-import ModalContent from "../../ModalContent";
 import ModalTitle from "../../ModalTitle";
-import Separator from "../../Separator";
-import Spacer from "../../Spacer";
-import Value from "../../Value";
 
 import famerImg from "../../../assets/img/farmer.png";
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
-  const { account, reset } = useWallet();
+  const { account } = useWallet();
+  const pylon = usePylon();
+
+  const [votes, setvotes] = useState("");
+  const [devsVotes, setdevsVotes] = useState("");
+  const [proposalThreshold, setProposalThreshold] = useState("");
 
   const handleSignOutClick = useCallback(() => {
     onDismiss!();
-    reset();
-  }, [onDismiss, reset]);
+  }, [onDismiss]);
 
-  const solariteBalance = useTokenBalance(solariteAddress);
-  const solariteV2Balance = useTokenBalance(solariteV2Address);
+  // old grap address: 0x00007569643bc1709561ec2E86F385Df3759e5DD
+  // new address: 0x57d97b3df6d349622d38b6d297b2bfa2d7d15ec1
+  const onDelegateSelf = useDelegate().onDelegate;
+  const onDelegateDev = useDelegate(
+    "0x57d97B3Df6D349622d38B6D297b2bFa2D7d15Ec1"
+  ).onDelegate;
+
+  const pylonBalance = useTokenBalance(pylonAddress);
+  const displayBalance = useMemo(() => {
+    return getDisplayBalance(pylonBalance);
+  }, [pylonBalance]);
+
+  // const fetchVotes = useCallback(async () => {
+  //   const votes = await getCurrentVotes(pylon, account)
+  //   const devsVotes = await getCurrentVotes(pylon, "0x57d97B3Df6D349622d38B6D297b2bFa2D7d15Ec1")
+  //   const proposalThreshold = await getProposalThreshold(pylon);
+  //   setvotes(getDisplayBalance(votes))
+  //   setdevsVotes(getDisplayBalance(devsVotes))
+  //   setProposalThreshold(getDisplayBalance(proposalThreshold))
+  // }, [account, pylon])
+
+  // useEffect(() => {
+  //   if (pylon) {
+  //     fetchVotes()
+  //   }
+  // }, [fetchVotes, pylon])
 
   return (
     <Modal>
       <ModalTitle text="My Account" />
-      {/* <ModalContent>
-        <Spacer /> */}
 
-      {/* <div style={{ display: "flex" }}> */}
       <StyledBalanceWrapper>
         <CardIcon>
-          <span>
-            <img src={famerImg} height="32" />
-          </span>
+          <img src={famerImg} height="32" />
         </CardIcon>
         <StyledBalance>
-          <Value value={getDisplayBalance(solariteV2Balance, 24)} />
+          <StyledValue>{displayBalance}</StyledValue>
           <Label text="SOLARITE Balance" />
         </StyledBalance>
+        {/* <StyledBalance>
+          <StyledValue>{votes}</StyledValue>
+          <Label text="Current Votes" />
+        </StyledBalance>
+        <StyledBalance>
+          <StyledValue>{devsVotes}</StyledValue>
+          <Label text="Devs Votes" />
+        </StyledBalance> */}
+        {/* <StyledBalance>
+          <Label text="Proposal threshold is" />
+          <StyledValue>{proposalThreshold}</StyledValue>
+        </StyledBalance> */}
       </StyledBalanceWrapper>
-      {/* </div>
 
-        <Spacer />
+      {/* <StyledSpacer />
+      {votes != "" && votes == "0.000" &&
+        <Label text="Not yet?" /> && 
         <Button
-          href={`https://etherscan.io/address/${account}`}
-          text="View on Etherscan"
-          variant="secondary"
+          onClick={onDelegateSelf}
+          text="Setup Vote"
+          borderImage
         />
-        <Spacer /> */}
+      }
+      <StyledSpacer />
       <Button
-        onClick={handleSignOutClick}
-        text="Sign out"
-        // variant="secondary"
+        onClick={onDelegateDev}
+        text="Share votes to Devs"
+        borderImage
       />
-      {/* </ModalContent> */}
-      {/* <ModalActions>
-        <Button onClick={onDismiss} text="Cancel" />
-      </ModalActions> */}
+      <StyledSpacer /> */}
+      <Button onClick={handleSignOutClick} text="Sign out" borderImage />
+      <StyledSpacer />
     </Modal>
   );
 };
@@ -93,9 +127,19 @@ const StyledBalance = styled.div`
 const StyledBalanceWrapper = styled.div`
   align-items: center;
   display: flex;
-  // flex: 1;
   flex-direction: column;
   margin-bottom: ${(props) => props.theme.spacing[2]}px;
+`;
+
+const StyledBalanceIcon = styled.div`
+  font-size: 36px;
+  margin-right: ${(props) => props.theme.spacing[3]}px;
+`;
+
+const StyledBalanceActions = styled.div`
+  align-items: center;
+  display: flex;
+  margin-top: ${(props) => props.theme.spacing[4]}px;
 `;
 
 export default AccountModal;

@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import Container from "../Container";
-
 interface PageHeaderProps {
   icon: React.ReactNode;
   subtitle?: string;
@@ -10,24 +8,23 @@ interface PageHeaderProps {
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
+  console.log(icon);
   return (
-    <Container size="sm">
-      <StyledPageHeader>
-        <StyledIcon>
-          {typeof icon === "string" && icon.length > 0 ? (
-            <img
-              src={require("../../assets/img/" + icon)}
-              height="108px"
-              width="128px"
-            />
-          ) : (
-            ""
-          )}
-        </StyledIcon>
-        <StyledTitle>{title}</StyledTitle>
-        <StyledSubtitle>{subtitle}</StyledSubtitle>
-      </StyledPageHeader>
-    </Container>
+    <StyledPageHeader>
+      <StyledIcon>
+        {typeof icon === "string" && icon.length > 0 ? (
+          <img
+            src={require("../../assets/img/" + icon)}
+            height="108px"
+            width="128px"
+          />
+        ) : (
+          ""
+        )}
+      </StyledIcon>
+      <StyledTitle>{title}</StyledTitle>
+      <StyledSubtitle>{subtitle}</StyledSubtitle>
+    </StyledPageHeader>
   );
 };
 

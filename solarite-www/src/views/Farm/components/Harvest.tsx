@@ -33,13 +33,14 @@ const Harvest: React.FC<HarvestProps> = ({ poolContract }) => {
               <img src={famerImg} height="32" />
             </CardIcon>
             <Value value={getDisplayBalance(earnings)} />
-            <Label text="SOLARITEs earned" />
+            <Label text="PYLONs earned" />
           </StyledCardHeader>
           <StyledCardActions>
             <Button
               onClick={onReward}
               text="Harvest"
               disabled={!earnings.toNumber()}
+              // borderImage
             />
           </StyledCardActions>
         </StyledCardContentInner>
