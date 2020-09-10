@@ -18,6 +18,8 @@ import Label from "../../Label";
 import Modal, { ModalProps } from "../../Modal";
 import ModalTitle from "../../ModalTitle";
 
+import famerImg from "../../../assets/img/farmer.png";
+
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const { account } = useWallet();
   const pylon = usePylon();
@@ -63,7 +65,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
       <StyledBalanceWrapper>
         <CardIcon>
-          <img src="/solarite/static/media/farmer.dcde868a.png" height="32" />
+          <img src={famerImg} height="32" />
         </CardIcon>
         <StyledBalance>
           <StyledValue>{displayBalance}</StyledValue>

@@ -15,6 +15,7 @@ import useReward from "../../../hooks/useReward";
 
 import { getDisplayBalance } from "../../../utils/formatBalance";
 
+import famerImg from "../../../assets/img/farmer.png";
 interface HarvestProps {
   poolContract: Contract;
 }
@@ -29,10 +30,7 @@ const Harvest: React.FC<HarvestProps> = ({ poolContract }) => {
         <StyledCardContentInner>
           <StyledCardHeader>
             <CardIcon>
-              <img
-                src="/solarite/static/media/farmer.dcde868a.png"
-                height="32"
-              />
+              <img src={famerImg} height="32" />
             </CardIcon>
             <Value value={getDisplayBalance(earnings)} />
             <Label text="PYLONs earned" />
