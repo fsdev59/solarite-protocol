@@ -19,7 +19,7 @@ export interface SolariteContext {
   solarite?: typeof Solarite;
 }
 
-const ADDRESS = "0xD7B7d3C0bdA57723Fb54ab95Fd8F9EA033AF37f2";
+const ADDRESS = "0x930eD81ad809603baf727117385D01f04354612E";
 let currentPrice = 0;
 let solarite: any;
 const FarmCards: React.FC = () => {
@@ -87,22 +87,18 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
     const selfAddress = solarite.web3.currentProvider.selectedAddress;
     const token = farm.depositToken;
     let ah: any = {
-      weth: "eth_pool",
+      //weth: "eth_pool",
       uni_lp: "ycrvUNIV_pool",
-      wbtc: "btc_pool",
-      link: "yalink_pool",
+      //wbtc: "btc_pool",
+      //link: "yalink_pool",
     };
     let key = ah[token] || `${token}_pool`;
 
     const STAKING_POOL = solarite.contracts[key];
     console.log(token);
     const Token =
-      token === "link"
-        ? solarite.contracts["yalink"]
-        : token === "uni_lp"
+      token === "uni_lp"
         ? solarite.contracts["ycrvUNIV"]
-        : token === "wbtc"
-        ? solarite.contracts["btc"]
         : solarite.contracts[token];
     const SOLARITE_TOKEN = solarite.contracts.solarite;
     console.log("p", SOLARITE_TOKEN);
@@ -145,6 +141,12 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
       uni_lp: ["curve-fi-ydai-yusdc-yusdt-ytusd"],
       wbtc: ["wrapped-bitcoin"],
       solarite: ["solarite-finance"],
+      based: ["based-money"],
+      ethpylonlp: [""],
+      ewtb: [""],
+      pylon: ["pylon-finance"],
+      ycrvpylonlp: [""],
+      zombie: ["zombie-finance"],
     };
     let stakingTokenPrice = 1;
 
@@ -164,6 +166,7 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
       console.log(price);
 
       if (token === "uni_lp") {
+        // need to update this url after uni_lp pool deployed
         const UNI_TOKEN_ADDR = "0xEbC1E9a5D9E2FB9e5c5981b12D2062512D2847BE";
         const totalyCRVInUniswapPair =
           (await solarite.contracts["ycrv"].methods

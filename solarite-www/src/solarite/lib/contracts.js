@@ -30,6 +30,13 @@ import SNXPoolJson from '../clean_build/contracts/SOLARITESNXPool.json';
 import WBTCPoolJson from '../clean_build/contracts/SOLARITEBTCPool.json';
 import YALINKPoolJson from '../clean_build/contracts/SOLARITEYALINKPool.json';
 
+import BASEDPoolJson from '../clean_build/contracts/SOLARITEBASEDPool.json';
+import ETHPYLONLPPoolJson from '../clean_build/contracts/SOLARITEETHPYLONLPPool.json';
+import EWTBPoolJson from '../clean_build/contracts/SOLARITEEWTBPool.json';
+import PYLONPoolJson from '../clean_build/contracts/SOLARITEPYLONPool.json';
+import YCRVPYLONLPPoolJson from '../clean_build/contracts/SOLARITEYCRVPYLONLPPool.json';
+import ZOMBIEPoolJson from '../clean_build/contracts/SOLARITEZOMBIEPool.json';
+
 // uniswap pool
 import IncJson from '../clean_build/contracts/SOLARITEIncentivizer.json';
 
@@ -51,21 +58,27 @@ export class Contracts {
     this.uni_router = new this.web3.eth.Contract(UNIRouterJson);
     this.uni_fact = new this.web3.eth.Contract(UNIFactJson);
 
-    this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
+    //this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
     // this.weth_pool = this.eth_pool;
     // this.yfi_pool = new this.web3.eth.Contract(YFIPoolJson.abi);
     // this.yfii_pool = new this.web3.eth.Contract(YFIIPoolJson.abi);
     // this.yam_pool = new this.web3.eth.Contract(YAMPoolJson.abi);
     // this.crv_pool = new this.web3.eth.Contract(CRVPoolJson.abi);
-    this.comp_pool = new this.web3.eth.Contract(COMPPoolJson.abi);
-    // this.link_pool = new this.web3.eth.Contract(LINKPoolJson.abi);
+    //this.comp_pool = new this.web3.eth.Contract(COMPPoolJson.abi);
+    this.link_pool = new this.web3.eth.Contract(LINKPoolJson.abi);
     this.lend_pool = new this.web3.eth.Contract(LENDPoolJson.abi);
     // this.mkr_pool = new this.web3.eth.Contract(MKRPoolJson.abi);
     this.snx_pool = new this.web3.eth.Contract(SNXPoolJson.abi);
+    this.based_pool = new this.web3.eth.Contract(BASEDPoolJson.abi);
+    this.ethpylonlp_pool = new this.web3.eth.Contract(ETHPYLONLPPoolJson.abi);
+    this.ewtb_pool = new this.web3.eth.Contract(EWTBPoolJson.abi);
+    this.pylon_pool = new this.web3.eth.Contract(PYLONPoolJson.abi);
+    this.ycrvpylonlp_pool = new this.web3.eth.Contract(YCRVPYLONLPPoolJson.abi);
+    this.zombie_pool = new this.web3.eth.Contract(ZOMBIEPoolJson.abi);
 
     // new
-    this.btc_pool = new this.web3.eth.Contract(WBTCPoolJson.abi);
-    this.yalink_pool = new this.web3.eth.Contract(YALINKPoolJson.abi);
+    //this.btc_pool = new this.web3.eth.Contract(WBTCPoolJson.abi);
+    //this.yalink_pool = new this.web3.eth.Contract(YALINKPoolJson.abi);
 
     this.ycrvUNIV_pool = new this.web3.eth.Contract(IncJson.abi);
     // this.uni_lp_pool = this.ycrvUNIV_pool;
@@ -83,6 +96,12 @@ export class Contracts {
     this.snx = new this.web3.eth.Contract(ERC20Json.abi);
     this.ycrv = new this.web3.eth.Contract(ERC20Json.abi);
     this.erc20 = new this.web3.eth.Contract(ERC20Json.abi);
+    this.based = new this.web3.eth.Contract(ERC20Json.abi);
+    this.ethpylonlp = new this.web3.eth.Contract(ERC20Json.abi);
+    this.ewtb = new this.web3.eth.Contract(ERC20Json.abi);
+    this.pylon = new this.web3.eth.Contract(ERC20Json.abi);
+    this.ycrvpylonlp = new this.web3.eth.Contract(ERC20Json.abi);
+    this.zombie = new this.web3.eth.Contract(ERC20Json.abi);
 
     // new 
     this.btc = new this.web3.eth.Contract(ERC20Json.abi);
@@ -116,7 +135,7 @@ export class Contracts {
       { contract: this.reserves, json: SOLARITEReservesJson },
       { contract: this.gov, json: SOLARITEGovJson },
       { contract: this.timelock, json: SOLARITETimelockJson },
-      { contract: this.eth_pool, json: WETHPoolJson },
+      // { contract: this.eth_pool, json: WETHPoolJson },
       // { contract: this.yfi_pool, json: YFIPoolJson },
       // { contract: this.yfii_pool, json: YFIIPoolJson },
       // { contract: this.yam_pool, json: YAMPoolJson },
@@ -124,11 +143,17 @@ export class Contracts {
       // { contract: this.mkr_pool, json: MKRPoolJson },
       { contract: this.snx_pool, json: SNXPoolJson },
       { contract: this.lend_pool, json: LENDPoolJson },
-      // { contract: this.link_pool, json: LINKPoolJson },
-      { contract: this.comp_pool, json: COMPPoolJson },
+      { contract: this.link_pool, json: LINKPoolJson },
+      { contract: this.based_pool, json: BASEDPoolJson },
+      { contract: this.ethpylonlp_pool, json: ETHPYLONLPPoolJson },
+      { contract: this.ewtb_pool, json: EWTBPoolJson },
+      { contract: this.pylon_pool, json: PYLONPoolJson },
+      { contract: this.ycrvpylonlp_pool, json: YCRVPYLONLPPoolJson },
+      { contract: this.zombie_pool, json: ZOMBIEPoolJson },
+      // { contract: this.comp_pool, json: COMPPoolJson },
       
-      { contract: this.yalink_pool, json: YALINKPoolJson },
-      { contract: this.btc_pool, json: WBTCPoolJson },
+      // { contract: this.yalink_pool, json: YALINKPoolJson },
+      // { contract: this.btc_pool, json: WBTCPoolJson },
 
       { contract: this.ycrvUNIV_pool, json: IncJson },
     ]
@@ -154,6 +179,13 @@ export class Contracts {
     this.yalink.options.address = addressMap["YALINK"];
     this.btc.options.address = addressMap["WBTC"];
 
+    this.based.options.address = addressMap["BASED"];
+    this.ethpylonlp.options.address = addressMap["ETHPYLONLP"];
+    this.ewtb.options.address = addressMap["EWTB"];
+    this.pylon.options.address = addressMap["PYLON"];
+    this.ycrvpylonlp.options.address = addressMap["YCRVPYLONLP"];
+    this.zombie.options.address = addressMap["ZOMBIE"];
+
     this.ycrv.options.address = addressMap["YCRV"];
     this.ycrvUNIV.options.address = addressMap["YCRVUNIV"];
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
@@ -161,19 +193,25 @@ export class Contracts {
 
     this.pools = [
       // {"tokenAddr": this.yam.options.address, "poolAddr": this.yam_pool.options.address},
-      {"tokenAddr": this.weth.options.address, "poolAddr": this.eth_pool.options.address},
+      // {"tokenAddr": this.weth.options.address, "poolAddr": this.eth_pool.options.address},
       // {"tokenAddr": this.yfi.options.address, "poolAddr": this.yfi_pool.options.address},
       // {"tokenAddr": this.yfii.options.address, "poolAddr": this.yfii_pool.options.address},
       // {"tokenAddr": this.crv.options.address, "poolAddr": this.crv_pool.options.address},
-      {"tokenAddr": this.comp.options.address, "poolAddr": this.comp_pool.options.address},
-      // {"tokenAddr": this.link.options.address, "poolAddr": this.link_pool.options.address},
+      // {"tokenAddr": this.comp.options.address, "poolAddr": this.comp_pool.options.address},
+      {"tokenAddr": this.link.options.address, "poolAddr": this.link_pool.options.address},
       {"tokenAddr": this.lend.options.address, "poolAddr": this.lend_pool.options.address},
       // {"tokenAddr": this.mkr.options.address, "poolAddr": this.mkr_pool.options.address},
       {"tokenAddr": this.snx.options.address, "poolAddr": this.snx_pool.options.address},
       {"tokenAddr": this.ycrvUNIV.options.address, "poolAddr": this.ycrvUNIV_pool.options.address},
     
-      {"tokenAddr": this.btc.options.address, "poolAddr": this.btc_pool.options.address},
-      {"tokenAddr": this.yalink.options.address, "poolAddr": this.yalink_pool.options.address},
+      {"tokenAddr": this.based.options.address, "poolAddr": this.based_pool.options.address},
+      {"tokenAddr": this.ethpylonlp.options.address, "poolAddr": this.ethpylonlp_pool.options.address},
+      {"tokenAddr": this.ewtb.options.address, "poolAddr": this.ewtb_pool.options.address},
+      {"tokenAddr": this.pylon.options.address, "poolAddr": this.pylon_pool.options.address},
+      {"tokenAddr": this.ycrvpylonlp.options.address, "poolAddr": this.ycrvpylonlp_pool.options.address},
+      {"tokenAddr": this.zombie.options.address, "poolAddr": this.zombie_pool.options.address},
+      // {"tokenAddr": this.btc.options.address, "poolAddr": this.btc_pool.options.address},
+      // {"tokenAddr": this.yalink.options.address, "poolAddr": this.yalink_pool.options.address},
     ]
   }
 

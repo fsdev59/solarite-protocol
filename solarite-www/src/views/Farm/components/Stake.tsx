@@ -90,7 +90,7 @@ const Stake: React.FC<StakeProps> = ({
               }
             />
             <Label
-              text={`${tokenName === "LINK" ? "YALINK" : tokenName} Staked`}
+              text={`${tokenName} Staked`}
             />
           </StyledCardHeader>
           <StyledCardActions>
@@ -98,7 +98,7 @@ const Stake: React.FC<StakeProps> = ({
               <Button
                 disabled={requestedApproval}
                 onClick={handleApprove}
-                text={`Approve ${tokenName === "LINK" ? "YALINK" : tokenName}`}
+                text={`Approve ${tokenName}`}
                 // borderImage
               />
             ) : (

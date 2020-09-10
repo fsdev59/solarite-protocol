@@ -104,9 +104,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             <StyledDetails>
               <StyledDetail>
                 Deposit{" "}
-                {farm.depositToken === "link"
-                  ? "YALINK"
-                  : farm.depositToken.toUpperCase()}
+                {farm.depositToken.toUpperCase()}
               </StyledDetail>
               <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
             </StyledDetails>

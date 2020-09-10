@@ -10,9 +10,9 @@ const Nav: React.FC = () => {
         Farms
       </StyledLink>
       {/* <StyledLink exact activeClassName="active" to="/vote">Vote</StyledLink> */}
-      <StyledLink exact activeClassName="active" to="/stats">
+      {/* <StyledLink exact activeClassName="active" to="/stats">
         Stats
-      </StyledLink>
+      </StyledLink> */}
     </StyledNav>
   );
 };

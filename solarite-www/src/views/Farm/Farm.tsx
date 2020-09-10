@@ -85,7 +85,7 @@ const Farm: React.FC = () => {
       <SolariteNotifyView>
         <p>
           If you want Add liquidity to Uniswap, please use this{" "}
-          <a href="https://app.uniswap.org/#/add/0xD7B7d3C0bdA57723Fb54ab95Fd8F9EA033AF37f2/0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8">
+          <a href="https://app.uniswap.org/#/add/0x930eD81ad809603baf727117385D01f04354612E/0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8">
             Uniswap link
           </a>
           .
@@ -98,9 +98,7 @@ const Farm: React.FC = () => {
     <>
       <PageHeader
         icon={icon}
-        subtitle={`Deposit ${
-          depositTokenName === "LINK" ? "YALINK" : depositTokenName
-        } and earn ${earnTokenName}`}
+        subtitle={`Deposit ${depositTokenName} and earn ${earnTokenName}`}
         title={name}
       />
       {SolariteNotify(depositToken)}

@@ -40,23 +40,35 @@ import { Farm } from "./types";
 const NAME_FOR_POOL: { [key: string]: string } = {
   eth_pool: "Assimilator",
   comp_pool: "Cybernetics Core",
-  // link_pool: 'Marine Gardens',
+  link_pool: 'Marine Gardens',
   lend_pool: "Oracle",
   snx_pool: "Robotics Facility",
   btc_pool: "Stargate",
   yalink_pool: "Templar Archives",
   ycrvUNIV_pool: "Twilight Council",
+  based_pool: "Assimilator",
+  ethpylonlp_pool: "Assimilator",
+  ewtb_pool: "Assimilator",
+  pylon_pool: "Assimilator",
+  ycrvpylonlp_pool: "Assimilator",
+  zombie_pool: "Assimilator",
 };
 
 const ICON_FOR_POOL: { [key: string]: string } = {
   eth_pool: "Icon_Protoss_Assimilator.png",
   comp_pool: "Icon_Protoss_Cybernetics_Core.png",
-  // link_pool: '🔗',
+  link_pool: 'Icon_Protoss_Cybernetics_Core.png',
   lend_pool: "Icon_Protoss_Forge.png",
   snx_pool: "Icon_Protoss_Oracle.png",
   btc_pool: "Icon_Protoss_Robotics_Facility.png",
   yalink_pool: "Icon_Protoss_Stargate.png",
   ycrvUNIV_pool: "Icon_Protoss_Templar_Archives.png",
+  based_pool: "Icon_Protoss_Templar_Archives.png",
+  ethpylonlp_pool: "Icon_Protoss_Templar_Archives.png",
+  ewtb_pool: "Icon_Protoss_Templar_Archives.png",
+  pylon_pool: "Icon_Protoss_Templar_Archives.png",
+  ycrvpylonlp_pool: "Icon_Protoss_Templar_Archives.png",
+  zombie_pool: "Icon_Protoss_Templar_Archives.png",
 };
 
 // const SORT_FOR_POOL: { [key: string]: number } = {
@@ -96,15 +108,10 @@ const Farms: React.FC = ({ children }) => {
       const poolKey = poolKeys[i];
       const pool = pools[poolKey];
       let tokenKey = poolKey.replace("_pool", "");
-      if (tokenKey === "eth") {
-        tokenKey = "weth";
-      } else if (tokenKey === "ycrvUNIV") {
-        //tokenKey = 'uni_lp'
-        tokenKey = "";
-      } else if (tokenKey === "btc") {
-        tokenKey = "wbtc";
-      } else if (tokenKey === "yalink") {
-        tokenKey = "link";
+      
+      if (tokenKey === "ycrvUNIV") {
+        tokenKey = 'uni_lp'
+        //tokenKey = "";
       }
 
       const method = pool.methods[tokenKey];
@@ -112,7 +119,7 @@ const Farms: React.FC = ({ children }) => {
         try {
           let tokenAddress = "";
           if (tokenKey === "uni_lp") {
-            // checking
+            // checking need to update with new uni_lp for solarite
             tokenAddress = "0xEbC1E9a5D9E2FB9e5c5981b12D2062512D2847BE";
           } else {
             tokenAddress = await method().call();

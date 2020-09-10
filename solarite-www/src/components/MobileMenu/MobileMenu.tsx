@@ -26,14 +26,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onDismiss, visible }) => {
             Farms
           </StyledLink>
           {/* <StyledLink exact activeClassName="active" to="/vote" onClick={onDismiss}>Vote</StyledLink> */}
-          <StyledLink
+          {/* <StyledLink
             exact
             activeClassName="active"
             to="/stats"
             onClick={onDismiss}
           >
             Stats
-          </StyledLink>
+          </StyledLink> */}
         </StyledMobileMenu>
       </StyledMobileMenuWrapper>
     );
