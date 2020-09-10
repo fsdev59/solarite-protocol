@@ -102,7 +102,7 @@ const Farms: React.FC = ({ children }) => {
     const farmsArr: Farm[] = [];
     const poolKeys = Object.keys(pools);
 
-    console.log(poolKeys);
+    console.log("poolkey", pools);
 
     for (let i = 0; i < poolKeys.length; i++) {
       const poolKey = poolKeys[i];
@@ -112,9 +112,16 @@ const Farms: React.FC = ({ children }) => {
       if (tokenKey === "ycrvUNIV") {
         //tokenKey = 'uni_lp'
         tokenKey = "";
+      } else if (tokenKey === "ethpylonlp") {
+        tokenKey = "eth_pylon_uni_lp";
+      } else if (tokenKey === "ycrvpylonlp") {
+        tokenKey = "ycrv_pylon_uni_lp";
       }
 
       const method = pool.methods[tokenKey];
+      console.log(tokenKey);
+      console.log(method);
+
       if (method) {
         try {
           let tokenAddress = "";
@@ -134,6 +141,8 @@ const Farms: React.FC = ({ children }) => {
             icon: ICON_FOR_POOL[poolKey],
             id: tokenKey,
           });
+
+          
         } catch (e) {
           console.log(e);
         }
