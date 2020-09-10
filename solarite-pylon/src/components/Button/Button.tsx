@@ -110,7 +110,7 @@ interface StyledButtonProps {
 const StyledButton = styled.button<StyledButtonProps>`
   position: relative;
   align-items: center;
-  background-color: #6854ff;
+  background-color: #f79250;
   color: #f0f1f5;
   border-radius: 20px;
   // background-color: ${(props) => props.theme.color.grey[200]};
@@ -136,7 +136,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   width: 100%;
   &:hover {
     // background-color: ${(props) => props.theme.color.grey[100]};
-    background-color: #5944f5;
+    background-color: #c2713c;
   }
   &:active {
     opacity: 0.8;

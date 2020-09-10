@@ -38,25 +38,25 @@ import { Farm } from "./types";
 // }
 
 const NAME_FOR_POOL: { [key: string]: string } = {
-  eth_pool: "Nexus",
-  comp_pool: "Gateway",
+  eth_pool: "Assimilator",
+  comp_pool: "Cybernetics Core",
   // link_pool: 'Marine Gardens',
-  lend_pool: "Robotics Facility",
-  snx_pool: "Fleet Beacon",
-  btc_pool: "Shield Battery",
-  yalink_pool: "Photon Cannon",
+  lend_pool: "Oracle",
+  snx_pool: "Robotics Facility",
+  btc_pool: "Stargate",
+  yalink_pool: "Templar Archives",
   ycrvUNIV_pool: "Twilight Council",
 };
 
 const ICON_FOR_POOL: { [key: string]: string } = {
-  eth_pool: "nexus.png",
-  comp_pool: "gateway.png",
+  eth_pool: "Icon_Protoss_Assimilator.png",
+  comp_pool: "Icon_Protoss_Cybernetics_Core.png",
   // link_pool: '🔗',
-  lend_pool: "robotics_facility.png",
-  snx_pool: "fleet_beacon.png",
-  btc_pool: "shield_battery.png",
-  yalink_pool: "photon_cannon.png",
-  ycrvUNIV_pool: "twilight_council.png",
+  lend_pool: "Icon_Protoss_Forge.png",
+  snx_pool: "Icon_Protoss_Oracle.png",
+  btc_pool: "Icon_Protoss_Robotics_Facility.png",
+  yalink_pool: "Icon_Protoss_Stargate.png",
+  ycrvUNIV_pool: "Icon_Protoss_Templar_Archives.png",
 };
 
 // const SORT_FOR_POOL: { [key: string]: number } = {

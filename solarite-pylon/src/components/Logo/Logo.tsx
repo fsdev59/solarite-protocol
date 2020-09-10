@@ -7,7 +7,7 @@ const Logo: React.FC = () => {
   return (
     <StyledLogo>
       <img src={farmer} height="32" style={{ marginTop: -4 }} />
-      <StyledText>PYLON</StyledText>
+      <StyledText>SOLARITE</StyledText>
     </StyledLogo>
   );
 };
@@ -19,7 +19,7 @@ const StyledLogo = styled.div`
 
 const StyledText = styled.span`
   // color: ${(props) => props.theme.color.grey[600]};
-  color: #5c47f5;
+  color: #f79250;
   font-size: 18px;
   font-weight: 700;
   margin-left: ${(props) => props.theme.spacing[2]}px;

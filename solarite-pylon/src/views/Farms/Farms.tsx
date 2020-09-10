@@ -28,7 +28,7 @@ const Farms: React.FC = () => {
             /> */}
               <PageHeader
                 icon=""
-                subtitle="Earn PYLON tokens by providing liquidity."
+                subtitle="Earn SOLARITE tokens by providing liquidity."
                 title="Select a farm."
               />
               <FarmCards />

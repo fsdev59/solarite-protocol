@@ -63,11 +63,11 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
       <StyledBalanceWrapper>
         <CardIcon>
-          <img src="/pylon/static/media/farmer.dcde868a.png" height="32" />
+          <img src="/solarite/static/media/farmer.dcde868a.png" height="32" />
         </CardIcon>
         <StyledBalance>
           <StyledValue>{displayBalance}</StyledValue>
-          <Label text="PYLON Balance" />
+          <Label text="SOLARITE Balance" />
         </StyledBalance>
         {/* <StyledBalance>
           <StyledValue>{votes}</StyledValue>

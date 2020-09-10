@@ -49,7 +49,7 @@ const StyledIcon = styled.div`
 
 const StyledTitle = styled.h1`
   // color: ${(props) => props.theme.color.grey[600]};
-  color: #5944f5;
+  color: #f79250;
   font-size: 36px;
   font-weight: 700;
   margin: 0;

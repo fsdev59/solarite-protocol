@@ -35,7 +35,7 @@ const App: React.FC = () => {
   }, [setMobileMenu]);
   return (
     <Providers>
-      <Router basename="/pylon">
+      <Router basename="/solarite">
         <TopBar onPresentMobileMenu={handlePresentMobileMenu} />
         <MobileMenu onDismiss={handleDismissMobileMenu} visible={mobileMenu} />
         <Switch>
