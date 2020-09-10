@@ -2,6 +2,8 @@ import {ethers} from 'ethers'
 
 import BigNumber from 'bignumber.js'
 
+import {PROPOSALSTATUSCODE} from '../solarite/lib/constants'
+
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
   DECIMAL_PLACES: 80,
@@ -21,7 +23,8 @@ export const getPoolStartTime = async (poolContract) => {
 export const stake = async (poolContract, amount, account, tokenName) => {
   let now = new Date().getTime() / 1000;
   const gas = GAS_LIMIT.STAKING[tokenName.toUpperCase()] || GAS_LIMIT.STAKING.DEFAULT;
-  if (now >= 1597172400) {
+  //if (now >= 1597172400) {
+  if (now >= 1599775200) {
     return poolContract.methods
       .stake((new BigNumber(amount).times(new BigNumber(10).pow(18))).toString())
       .send({ from: account, gas })
@@ -36,7 +39,7 @@ export const stake = async (poolContract, amount, account, tokenName) => {
 
 export const unstake = async (poolContract, amount, account) => {
   let now = new Date().getTime() / 1000;
-  if (now >= 1597172400) {
+  if (now >= 1599775200) {
     return poolContract.methods
       .withdraw((new BigNumber(amount).times(new BigNumber(10).pow(18))).toString())
       .send({ from: account, gas: 200000 })
@@ -51,10 +54,10 @@ export const unstake = async (poolContract, amount, account) => {
 
 export const harvest = async (poolContract, account) => {
   let now = new Date().getTime() / 1000;
-  if (now >= 1597172400) {
+  if (now >= 1599775200) {
     return poolContract.methods
       .getReward()
-      .send({ from: account, gas: 200000 })
+      .send({ from: account, gas: 400000 })
       .on('transactionHash', tx => {
         console.log(tx)
         return tx.transactionHash
@@ -66,10 +69,10 @@ export const harvest = async (poolContract, account) => {
 
 export const redeem = async (poolContract, account) => {
   let now = new Date().getTime() / 1000;
-  if (now >= 1597172400) {
+  if (now >= 1599775200) {
     return poolContract.methods
       .exit()
-      .send({ from: account, gas: 400000 })
+      .send({ from: account, gas: 200000 })
       .on('transactionHash', tx => {
         console.log(tx)
         return tx.transactionHash
@@ -83,6 +86,10 @@ export const approve = async (tokenContract, poolContract, account) => {
   return tokenContract.methods
     .approve(poolContract.options.address, ethers.constants.MaxUint256)
     .send({ from: account, gas: 80000 })
+}
+
+export const rebase = async (solarite, account) => {
+  return solarite.contracts.rebaser.methods.rebase().send({ from: account })
 }
 
 export const getPoolContracts = async (solarite) => {
@@ -123,10 +130,10 @@ export const getCirculatingSupply = async (solarite) => {
   if (timePassed < 0) {
     return 0;
   }
-  let solaritesDistributed = solarite.toBigN(8 * timePassed * 250000 / 625000); //solarites from first 8 pools
-  let starttimePool2 = solarite.toBigN(await solarite.contracts.ycrv_pool.methods.starttime().call()).toNumber();
+  let solaritesDistributed = solarite.toBigN(8 * timePassed * 1400 / 864000); //solarites from first 8 pools
+  let starttimePool2 = solarite.toBigN(await solarite.contracts.ycrvUNIV_pool.methods.starttime().call()).toNumber();
   timePassed = now["timestamp"] - starttime;
-  let pool2Solarites = solarite.toBigN(timePassed * 1500000 / 625000); // solarites from second pool. note: just accounts for first week
+  let pool2Solarites = solarite.toBigN(timePassed * 6300 / 864000); // solarites from second pool. note: just accounts for first week
   let circulating = pool2Solarites.plus(solaritesDistributed).times(scalingFactor).div(10**36).toFixed(2)
   return circulating
 }
@@ -134,8 +141,8 @@ export const getCirculatingSupply = async (solarite) => {
 export const getNextRebaseTimestamp = async (solarite) => {
   try {
     let now = await solarite.web3.eth.getBlock('latest').then(res => res.timestamp);
-    let interval = 43200; // 12 hours
-    let offset = 28800; // 8am/8pm utc
+    let interval = 86400; // 24 hours
+    let offset = 0; // 0AM utc
     let secondsToRebase = 0;
     if (await solarite.contracts.rebaser.methods.rebasingActive().call()) {
       if (now % interval > offset) {
@@ -158,7 +165,7 @@ export const getNextRebaseTimestamp = async (solarite) => {
         return now + 13*60*60; // just know that its greater than 12 hours away
       }
     }
-    return secondsToRebase
+    return now + secondsToRebase
   } catch (e) {
     console.log(e)
   }
@@ -183,39 +190,85 @@ export const getStats = async (solarite) => {
   }
 }
 
-export const vote = async (solarite, account) => {
-  return solarite.contracts.gov.methods.castVote(0, true).send({ from: account })
+
+// gov
+export const getProposals = async (solarite) => {
+  let proposals = []
+  const filter = {
+    fromBlock: 0,
+    toBlock: 'latest',
+  }
+  const events = await solarite.contracts.gov.getPastEvents("allEvents", filter)
+  for (let i = 0; i < events.length; i++) {
+    const event = events[i]
+    let index = 0;
+    if (event.removed === false) {
+      switch (event.event) {
+        case "ProposalCreated":
+          proposals.push(
+            {
+              id: event.returnValues.id,
+              proposer: event.returnValues.proposer,
+              description: event.returnValues.description,
+              startBlock: Number(event.returnValues.startBlock),
+              endBlock: Number(event.returnValues.endBlock),
+              targets: event.returnValues.targets,
+              values: event.returnValues.values,
+              signatures: event.returnValues.signatures,
+              status: PROPOSALSTATUSCODE.CREATED,
+              transactionHash: event.transactionHash
+            }
+          )
+          break
+        // TODO
+        case "ProposalCanceled":
+          index = proposals.findIndex((proposal) => proposal.id === event.returnValues.id)
+          proposals[index].status = PROPOSALSTATUSCODE.CANCELED
+          break
+        case "ProposalQueued":
+          index = proposals.findIndex((proposal) => proposal.id === event.returnValues.id)
+          proposals[index].status = PROPOSALSTATUSCODE.QUEUED
+          break
+        case "VoteCast":
+            break
+        case "ProposalExecuted":
+          break
+        default:
+          break
+      }
+    }
+  }
+  proposals.sort((a,b) => Number(b.endBlock) - Number(b.endBlock))
+  return proposals
 }
 
-export const delegate = async (solarite, account) => {
-  return solarite.contracts.solarite.methods.delegate("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").send({from: account, gas: 320000 })
+export const getProposal = async (solarite, id) => {
+  const proposals = await getProposals(solarite)
+  const proposal = proposals.find(p => p.id === id )
+  return proposal
 }
 
-export const didDelegate = async (solarite, account) => {
-  return await solarite.contracts.solarite.methods.delegates(account).call() === '0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84'
+export const getProposalStatus = async (solarite, id) => {
+  const proposalStatus = (await solarite.contracts.gov.methods.proposals(id).call())
+  return proposalStatus
 }
 
-export const getVotes = async (solarite) => {
-  const votesRaw = new BigNumber(await solarite.contracts.solarite.methods.getCurrentVotes("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").call()).div(10**24)
-  return votesRaw
+export const getQuorumVotes = async (solarite) => {
+  return new BigNumber(await solarite.contracts.gov.methods.quorumVotes().call()).div(10**6)
 }
 
-export const getScalingFactor = async (solarite) => {
-  return new BigNumber(await solarite.contracts.solarite.methods.solaritesScalingFactor().call())
+export const getProposalThreshold = async (solarite) => {
+  return new BigNumber(await solarite.contracts.gov.methods.proposalThreshold().call()).div(10**6)
 }
 
-export const getDelegatedBalance = async (solarite, account) => {
-  return new BigNumber(await solarite.contracts.solarite.methods.balanceOfUnderlying(account).call()).div(10**24)
+export const getCurrentVotes = async (solarite, account) => {
+  return solarite.toBigN(await solarite.contracts.solarite.methods.getCurrentVotes(account).call()).div(10**6)
 }
 
-export const migrate = async (solarite, account) => {
-  return solarite.contracts.solariteV2migration.methods.migrate().send({ from: account, gas: 320000 })
+export const delegate = async (solarite, account, from) => {
+  return solarite.contracts.solarite.methods.delegate(account).send({from: from, gas: 320000 })
 }
 
-export const getMigrationEndTime = async (solarite) => {
-  return solarite.toBigN(await solarite.contracts.solariteV2migration.methods.startTime().call()).plus(solarite.toBigN(86400*3)).toNumber()
-}
-
-export const getV2Supply = async (solarite) => {
-  return new BigNumber(await solarite.contracts.solariteV2.methods.totalSupply().call())
+export const castVote = async (solarite, id, support, from) => {
+  return solarite.contracts.gov.methods.castVote(id, support).send({from: from, gas: 320000 })
 }

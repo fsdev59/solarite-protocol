@@ -82,8 +82,16 @@ const Stake: React.FC<StakeProps> = ({
         <StyledCardContentInner>
           <StyledCardHeader>
             <CardIcon>🌱</CardIcon>
-            <Value value={getDisplayBalance(stakedBalance)} />
-            <Label text={`${tokenName} Staked`} />
+            <Value
+              value={
+                tokenName === "WBTC"
+                  ? getDisplayBalance(stakedBalance.times(10000000000))
+                  : getDisplayBalance(stakedBalance)
+              }
+            />
+            <Label
+              text={`${tokenName} Staked`}
+            />
           </StyledCardHeader>
           <StyledCardActions>
             {!allowance.toNumber() ? (
@@ -91,16 +99,17 @@ const Stake: React.FC<StakeProps> = ({
                 disabled={requestedApproval}
                 onClick={handleApprove}
                 text={`Approve ${tokenName}`}
+                // borderImage
               />
             ) : (
               <>
-                <Button text="Unstake" onClick={onPresentWithdraw} />
+                <IconButton onClick={onPresentWithdraw}>
+                  <RemoveIcon />
+                </IconButton>
                 <StyledActionSpacer />
-                {false && (
-                  <IconButton onClick={onPresentDeposit}>
-                    <AddIcon />
-                  </IconButton>
-                )}
+                <IconButton onClick={onPresentDeposit}>
+                  <AddIcon />
+                </IconButton>
               </>
             )}
           </StyledCardActions>

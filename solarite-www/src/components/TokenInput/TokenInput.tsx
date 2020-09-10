@@ -19,7 +19,7 @@ const TokenInput: React.FC<TokenInputProps> = ({
 }) => {
   return (
     <StyledTokenInput>
-      <StyledMaxText>{max.toLocaleString()} {symbol} Available</StyledMaxText>
+      <StyledMaxText>{symbol==="WBTC" ? (typeof max==="number"?max*10000000000:Number(max)*10000000000).toLocaleString() : max.toLocaleString()} {symbol} Available</StyledMaxText>
       <Input
         endAdornment={(
           <StyledTokenAdornmentWrapper>
@@ -32,7 +32,7 @@ const TokenInput: React.FC<TokenInputProps> = ({
         )}
         onChange={onChange}
         placeholder="0"
-        value={value}
+        value={symbol==="WBTC" ? (typeof value==="number"?value*10000000000:Number(value)*10000000000).toLocaleString() : value.toLocaleString()}
       />
     </StyledTokenInput>
   )

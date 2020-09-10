@@ -7,9 +7,6 @@ import farmer from "../../assets/img/farmer.png";
 import Button from "../../components/Button";
 import Page from "../../components/Page";
 import PageHeader from "../../components/PageHeader";
-import WalletProviderModal from "../../components/WalletProviderModal";
-
-import useModal from "../../hooks/useModal";
 
 import Farm from "../Farm";
 
@@ -17,14 +14,18 @@ import FarmCards from "./components/FarmCards";
 
 const Farms: React.FC = () => {
   const { path } = useRouteMatch();
-  const { account } = useWallet();
-  const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />);
+  const { account, connect } = useWallet();
   return (
     <Switch>
       <Page>
         {!!account ? (
           <>
             <Route exact path={path}>
+              {/* <PageHeader
+              icon={<img src={farmer} height="96" />}
+              subtitle="Earn SOLARITE tokens by providing liquidity."
+              title="Select a farm."
+            /> */}
               <PageHeader
                 icon=""
                 subtitle="Earn SOLARITE tokens by providing liquidity."
@@ -46,8 +47,9 @@ const Farms: React.FC = () => {
             }}
           >
             <Button
-              onClick={onPresentWalletProviderModal}
+              onClick={() => connect("injected")}
               text="CONNECT TO A WALLET"
+              // borderImage
             />
           </div>
         )}

@@ -38,7 +38,6 @@ export class Solarite {
     }
 
     this.web3 = new Web3(realProvider);
-
     if (testing) {
       this.testing = new EVM(realProvider);
       this.snapshot = this.testing.snapshot()
@@ -105,5 +104,9 @@ export class Solarite {
 
   toBigN(a) {
     return BigNumber(a);
+  }
+
+  getContracts() {
+    return this.contracts;
   }
 }

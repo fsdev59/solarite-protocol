@@ -6,6 +6,7 @@ import Logo from "../Logo";
 
 import AccountButton from "./components/AccountButton";
 import Nav from "./components/Nav";
+// import Button from "../../components/Button";
 
 interface TopBarProps {
   onPresentMobileMenu: () => void;
@@ -15,7 +16,6 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
   return (
     <StyledTopBar>
       {/* <Container size="lg"> */}
-
       <StyledTopBarInner>
         <div style={{ display: "flex", height: "100%" }}>
           <StyledLogoWrapper>
@@ -57,9 +57,9 @@ const StyledTopBar = styled.div`
 const StyledTopBarInner = styled.div`
   align-items: center;
   display: flex;
-  // height: ${(props) => props.theme.topBarSize}px;
+  height: ${(props) => props.theme.topBarSize}px;
   justify-content: space-between;
-  // max-width: ${(props) => props.theme.siteWidth}px;
+  /* max-width: ${(props) => props.theme.siteWidth}px; */
   width: 100%;
 `;
 const StyledNavWrapper = styled.div`
@@ -76,6 +76,7 @@ const StyledAccountButtonWrapper = styled.div`
   // display: flex;
   // justify-content: flex-end;
   // width: 156px;
+  // min-width: 156px;
   height: 102%;
   @media (max-width: 400px) {
     justify-content: center;

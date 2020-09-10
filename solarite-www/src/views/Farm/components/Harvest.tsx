@@ -40,6 +40,7 @@ const Harvest: React.FC<HarvestProps> = ({ poolContract }) => {
               onClick={onReward}
               text="Harvest"
               disabled={!earnings.toNumber()}
+              // borderImage
             />
           </StyledCardActions>
         </StyledCardContentInner>

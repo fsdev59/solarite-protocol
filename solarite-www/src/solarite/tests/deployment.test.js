@@ -1,5 +1,5 @@
 import {
-  Solarite
+  Yam
 } from "../index.js";
 import * as Types from "../lib/types.js";
 import {
@@ -11,7 +11,7 @@ import {
 } from "../lib/Helpers.js"
 
 
-export const solarite = new Solarite(
+export const solarite = new Yam(
   "http://localhost:8545/",
   // "http://127.0.0.1:9545/",
   "1001",

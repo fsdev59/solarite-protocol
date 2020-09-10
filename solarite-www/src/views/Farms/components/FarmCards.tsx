@@ -1,27 +1,22 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import Countdown, { CountdownRenderProps } from "react-countdown";
-import { useWallet } from "use-wallet";
-import numeral from "numeral";
 
 import Button from "../../../components/Button";
 import Card from "../../../components/Card";
 import CardContent from "../../../components/CardContent";
 import CardIcon from "../../../components/CardIcon";
 import Loader from "../../../components/Loader";
-import Spacer from "../../../components/Spacer";
 
 import useFarms from "../../../hooks/useFarms";
-import useSolarite from "../../../hooks/useSolarite";
 
 import { Farm } from "../../../contexts/Farms";
 
-import { bnToDec } from "../../../utils";
-import { getEarned, getPoolStartTime } from "../../../solariteUtils";
+import { getPoolStartTime } from "../../../solariteUtils";
 
 const FarmCards: React.FC = () => {
   const [farms] = useFarms();
-  const { account } = useWallet();
+
   const rows = farms.reduce<Farm[][]>(
     (farmRows, farm) => {
       const newFarmRows = [...farmRows];
@@ -63,11 +58,6 @@ interface FarmCardProps {
 
 const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const [startTime, setStartTime] = useState(0);
-  const [harvestable, setHarvestable] = useState(0);
-
-  const { contract } = farm;
-  const { account } = useWallet();
-  const solarite = useSolarite();
 
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract);
@@ -85,27 +75,21 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       </span>
     );
   };
-
+  console.log("a", farm.icon);
   useEffect(() => {
-    if (farm && farm.id === "ycrv_solarite_uni_lp") {
+    if (farm && farm.id === "uni_lp") {
       getStartTime();
     }
   }, [farm, getStartTime]);
 
-  useEffect(() => {
-    async function fetchEarned() {
-      const earned = await getEarned(solarite, contract, account);
-      setHarvestable(bnToDec(earned));
-    }
-    if (solarite && account) {
-      fetchEarned();
-    }
-  }, [solarite, contract, account, setHarvestable]);
-
   const poolActive = startTime * 1000 - Date.now() <= 0;
+
   return (
     <StyledCardWrapper>
-      {farm.id === "ycrv_solarite_uni_lp" && <StyledCardAccent />}
+      {/* {farm.id === 'uni_lp' && (
+        <StyledCardAccent />
+      )} */}
+      {<StyledCardAccent />}
       <Card>
         <CardContent>
           <StyledContent>
@@ -119,29 +103,19 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             <StyledTitle>{farm.name}</StyledTitle>
             <StyledDetails>
               <StyledDetail>
-                Deposit {farm.depositToken.toUpperCase()}
+                Deposit{" "}
+                {farm.depositToken.toUpperCase()}
               </StyledDetail>
               <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
             </StyledDetails>
-            <Spacer />
-            <StyledHarvestable>
-              {harvestable
-                ? `${numeral(harvestable).format(
-                    "0.00a"
-                  )} SOLARITEs ready to harvest.`
-                : undefined}
-            </StyledHarvestable>
             <Button
-              disabled={!poolActive}
-              text={poolActive ? "Select" : undefined}
-              to={`/farms/${farm.id}`}
+              // disabled={!poolActive}
+              // text={poolActive ? 'Select' : undefined}
+              text="Select"
+              to={`farms/${farm.id}`}
+              // borderImage
             >
-              {!poolActive && (
-                <Countdown
-                  date={new Date(startTime * 1000)}
-                  renderer={renderer}
-                />
-              )}
+              {/* {!poolActive && <Countdown date={new Date(startTime * 1000)} renderer={renderer} />} */}
             </Button>
           </StyledContent>
         </CardContent>
@@ -207,6 +181,7 @@ const StyledCardWrapper = styled.div`
 `;
 
 const StyledTitle = styled.h4`
+  // color: ${(props) => props.theme.color.grey[600]};
   color: #f6f5fa;
   font-size: 24px;
   font-weight: 700;
@@ -227,19 +202,13 @@ const StyledSpacer = styled.div`
 `;
 
 const StyledDetails = styled.div`
+  margin-bottom: ${(props) => props.theme.spacing[6]}px;
   margin-top: ${(props) => props.theme.spacing[2]}px;
   text-align: center;
 `;
 
 const StyledDetail = styled.div`
   color: ${(props) => props.theme.color.grey[500]};
-`;
-
-const StyledHarvestable = styled.div`
-  color: ${(props) => props.theme.color.secondary.main};
-  font-size: 16px;
-  height: 48px;
-  text-align: center;
 `;
 
 export default FarmCards;

@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 import farmer from "../../assets/img/farmer.png";
 
@@ -16,21 +15,10 @@ const Logo: React.FC = () => {
 const StyledLogo = styled.div`
   align-items: center;
   display: flex;
-  padding: 10px 0;
 `;
 
-// const StyledLogo = styled(Link)`
-//   align-items: center;
-//   display: flex;
-//   justify-content: center;
-//   margin: 0;
-//   min-height: 44px;
-//   min-width: 44px;
-//   padding: 0;
-//   text-decoration: none;
-// `;
-
 const StyledText = styled.span`
+  // color: ${(props) => props.theme.color.grey[600]};
   color: #f79250;
   font-size: 18px;
   font-weight: 700;
