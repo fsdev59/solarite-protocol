@@ -57,18 +57,18 @@ const NAME_FOR_POOL: { [key: string]: string } = {
 const ICON_FOR_POOL: { [key: string]: string } = {
   eth_pool: "Icon_Protoss_Assimilator.png",
   comp_pool: "Icon_Protoss_Cybernetics_Core.png",
-  link_pool: 'Icon_Protoss_Cybernetics_Core.png',
-  lend_pool: "Icon_Protoss_Forge.png",
-  snx_pool: "Icon_Protoss_Oracle.png",
+  link_pool: 'Icon_link.png',
+  lend_pool: "Icon_lend.png",
+  snx_pool: "Icon_snx.png",
   btc_pool: "Icon_Protoss_Robotics_Facility.png",
   yalink_pool: "Icon_Protoss_Stargate.png",
   ycrvUNIV_pool: "Icon_Protoss_Templar_Archives.png",
-  based_pool: "Icon_Protoss_Templar_Archives.png",
-  ethpylonlp_pool: "Icon_Protoss_Templar_Archives.png",
-  ewtb_pool: "Icon_Protoss_Templar_Archives.png",
-  pylon_pool: "Icon_Protoss_Templar_Archives.png",
-  ycrvpylonlp_pool: "Icon_Protoss_Templar_Archives.png",
-  zombie_pool: "Icon_Protoss_Templar_Archives.png",
+  based_pool: "Icon_based.png",
+  ethpylonlp_pool: "Icon_eth_pylon.png",
+  ewtb_pool: "Icon_ewtb.png",
+  pylon_pool: "Icon_pylon.png",
+  ycrvpylonlp_pool: "Icon_ycrv_pylon.png",
+  zombie_pool: "Icon_zombie.png",
 };
 
 // const SORT_FOR_POOL: { [key: string]: number } = {
