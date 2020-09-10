@@ -628,7 +628,7 @@ contract LPTokenWrapper {
 }
 
 contract SOLARITESNXPool is LPTokenWrapper, IRewardDistributionRecipient {
-    IERC20 public solarite = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16); // need replace
+    IERC20 public solarite = IERC20(0x930eD81ad809603baf727117385D01f04354612E); // need replace
     uint256 public constant DURATION = 2592000; // 30 days
 
     uint256 public starttime = 1599775200; // 2020-09-10 22:00:00 (UTC UTC +00:00)

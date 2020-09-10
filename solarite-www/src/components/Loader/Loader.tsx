@@ -11,7 +11,7 @@ const Loader: React.FC<LoaderProps> = ({ text }) => {
   return (
     <StyledLoader>
       <CardIcon>
-      <StyledSolarite>🍠</StyledSolarite>
+      <StyledSolarite>⌛</StyledSolarite>
       </CardIcon>
       {!!text && <StyledText>{text}</StyledText>}
     </StyledLoader>
@@ -35,6 +35,7 @@ const StyledLoader = styled.div`
 `
 
 const StyledSolarite = styled.div`
+  color: white;
   font-size: 32px;
   position: relative;
   animation: 1s ${spin} infinite;

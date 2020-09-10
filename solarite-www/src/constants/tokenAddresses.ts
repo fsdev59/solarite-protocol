@@ -1,2 +1,5 @@
-export const solarite = '0x0e2298e3b3390e3b945a5456fbf59ecc3f55da16'
-export const solaritev2 = '0xaba8cac6866b83ae4eec97dd07ed254282f6ad8a'
+// old grap address: 0xC8D2AB2a6FdEbC25432E54941cb85b55b9f152dB
+// new solarite address: 0xD7B7d3C0bdA57723Fb54ab95Fd8F9EA033AF37f2
+// deligator address
+// export const solarite = '0xD7B7d3C0bdA57723Fb54ab95Fd8F9EA033AF37f2'
+export const solarite = '0x930eD81ad809603baf727117385D01f04354612E'

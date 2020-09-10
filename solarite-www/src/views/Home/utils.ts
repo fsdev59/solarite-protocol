@@ -1,14 +1,11 @@
 import { Solarite } from '../../solarite'
 
-import { bnToDec } from '../../utils'
-
 import {
   getCurrentPrice as gCP,
   getTargetPrice as gTP,
   getCirculatingSupply as gCS,
   getNextRebaseTimestamp as gNRT,
   getTotalSupply as gTS,
-  getScalingFactor,
 } from '../../solariteUtils'
 
 const getCurrentPrice = async (solarite: typeof Solarite): Promise<number> => {
@@ -39,17 +36,14 @@ const getTotalSupply = async (solarite: typeof Solarite): Promise<string> => {
 
 export const getStats = async (solarite: typeof Solarite) => {
   const curPrice = await getCurrentPrice(solarite)
-  const circSupply = '' // await getCirculatingSupply(solarite)
+  const circSupply = await getCirculatingSupply(solarite)
   const nextRebase = await getNextRebaseTimestamp(solarite)
-  const rawScalingFactor = await getScalingFactor(solarite)
-  const scalingFactor = Number(bnToDec(rawScalingFactor).toFixed(2))
   const targetPrice = await getTargetPrice(solarite)
   const totalSupply = await getTotalSupply(solarite)
   return {
     circSupply,
     curPrice,
     nextRebase,
-    scalingFactor,
     targetPrice,
     totalSupply
   }
