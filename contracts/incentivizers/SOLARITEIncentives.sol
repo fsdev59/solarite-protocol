@@ -633,10 +633,10 @@ interface SOLARITE {
 }
 
 contract SOLARITEIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
-    IERC20 public solarite = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16);
+    IERC20 public solarite = IERC20(0x930eD81ad809603baf727117385D01f04354612E);
     uint256 public constant DURATION = 2592000; // 30 days
 
-    uint256 public initreward = 5 * 10**4 * 10**18; // 50K
+    uint256 public initreward = 25 * 10**3 * 10**18; // 25K
     uint256 public starttime = 1599775200 + 2 hours; // 2020-09-11 00:00:00 (UTC UTC +00:00)
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
