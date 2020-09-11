@@ -598,7 +598,7 @@ contract LPTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    IERC20 public solarite_pylon_uni_lp = IERC20(0x2C7a51A357d5739C5C74Bf3C96816849d2c9F726); // need replace
+    IERC20 public solarite_pylon_uni_lp = IERC20(0x989D69a32A29D7733a1e060a2004d0921bc06a49);
 
     uint256 private _totalSupply;
     mapping(address => uint256) private _balances;
