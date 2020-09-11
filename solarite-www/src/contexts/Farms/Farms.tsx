@@ -133,7 +133,7 @@ const Farms: React.FC = ({ children }) => {
           let tokenAddress = "";
           if (tokenKey === "uni_lp") {
             // checking need to update with new uni_lp for solarite
-            tokenAddress = "0x7A6D7959861eCE56f93335cfd6Fe0c5c2c961B6e";
+            tokenAddress = "0x7bc3a77b1b8daa4bf4b38c710119b932c5b27925";
           } else {
             tokenAddress = await method().call();
           }
