@@ -36,6 +36,7 @@ import EWTBPoolJson from '../clean_build/contracts/SOLARITEEWTBPool.json';
 import PYLONPoolJson from '../clean_build/contracts/SOLARITEPYLONPool.json';
 import YCRVPYLONLPPoolJson from '../clean_build/contracts/SOLARITEYCRVPYLONLPPool.json';
 import ZOMBIEPoolJson from '../clean_build/contracts/SOLARITEZOMBIEPool.json';
+import PYLONLPPoolJson from '../clean_build/contracts/SOLARITEPYLONLPPool.json';
 
 // uniswap pool
 import IncJson from '../clean_build/contracts/SOLARITEIncentivizer.json';
@@ -75,13 +76,14 @@ export class Contracts {
     this.pylon_pool = new this.web3.eth.Contract(PYLONPoolJson.abi);
     this.ycrvpylonlp_pool = new this.web3.eth.Contract(YCRVPYLONLPPoolJson.abi);
     this.zombie_pool = new this.web3.eth.Contract(ZOMBIEPoolJson.abi);
+    this.pylonlp_pool = new this.web3.eth.Contract(PYLONLPPoolJson.abi);
 
     // new
     //this.btc_pool = new this.web3.eth.Contract(WBTCPoolJson.abi);
     //this.yalink_pool = new this.web3.eth.Contract(YALINKPoolJson.abi);
 
     this.ycrvUNIV_pool = new this.web3.eth.Contract(IncJson.abi);
-    // this.uni_lp_pool = this.ycrvUNIV_pool;
+    this.uni_lp_pool = this.ycrvUNIV_pool;
 
     this.yfi = new this.web3.eth.Contract(ERC20Json.abi);
     this.yam = new this.web3.eth.Contract(ERC20Json.abi);
@@ -102,6 +104,7 @@ export class Contracts {
     this.pylon = new this.web3.eth.Contract(ERC20Json.abi);
     this.ycrvpylonlp = new this.web3.eth.Contract(ERC20Json.abi);
     this.zombie = new this.web3.eth.Contract(ERC20Json.abi);
+    this.pylonlp = new this.web3.eth.Contract(ERC20Json.abi);
 
     // new 
     this.btc = new this.web3.eth.Contract(ERC20Json.abi);
@@ -150,6 +153,7 @@ export class Contracts {
       { contract: this.pylon_pool, json: PYLONPoolJson },
       { contract: this.ycrvpylonlp_pool, json: YCRVPYLONLPPoolJson },
       { contract: this.zombie_pool, json: ZOMBIEPoolJson },
+      { contract: this.pylonlp_pool, json: PYLONLPPoolJson },
       // { contract: this.comp_pool, json: COMPPoolJson },
       
       // { contract: this.yalink_pool, json: YALINKPoolJson },
@@ -185,6 +189,7 @@ export class Contracts {
     this.pylon.options.address = addressMap["PYLON"];
     this.ycrvpylonlp.options.address = addressMap["YCRVPYLONLP"];
     this.zombie.options.address = addressMap["ZOMBIE"];
+    this.pylonlp.options.address = addressMap["PYLONLP"];
 
     this.ycrv.options.address = addressMap["YCRV"];
     this.ycrvUNIV.options.address = addressMap["YCRVUNIV"];
@@ -210,6 +215,7 @@ export class Contracts {
       {"tokenAddr": this.pylon.options.address, "poolAddr": this.pylon_pool.options.address},
       {"tokenAddr": this.ycrvpylonlp.options.address, "poolAddr": this.ycrvpylonlp_pool.options.address},
       {"tokenAddr": this.zombie.options.address, "poolAddr": this.zombie_pool.options.address},
+      {"tokenAddr": this.pylonlp.options.address, "poolAddr": this.pylonlp_pool.options.address},
       // {"tokenAddr": this.btc.options.address, "poolAddr": this.btc_pool.options.address},
       // {"tokenAddr": this.yalink.options.address, "poolAddr": this.yalink_pool.options.address},
     ]

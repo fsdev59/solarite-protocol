@@ -75,7 +75,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       </span>
     );
   };
-  console.log("a", farm.icon);
+  console.log("a", farm,  farm.icon);
   useEffect(() => {
     if (farm && farm.id === "uni_lp") {
       getStartTime();

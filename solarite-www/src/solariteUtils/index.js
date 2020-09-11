@@ -125,15 +125,15 @@ export const getTargetPrice = async (solarite) => {
 export const getCirculatingSupply = async (solarite) => {
   let now = await solarite.web3.eth.getBlock('latest');
   let scalingFactor = solarite.toBigN(await solarite.contracts.solarite.methods.solaritesScalingFactor().call());
-  let starttime = solarite.toBigN(await solarite.contracts.eth_pool.methods.starttime().call()).toNumber();
+  let starttime = solarite.toBigN(await solarite.contracts.ewtb_pool.methods.starttime().call()).toNumber();
   let timePassed = now["timestamp"] - starttime;
   if (timePassed < 0) {
     return 0;
   }
-  let solaritesDistributed = solarite.toBigN(8 * timePassed * 1400 / 864000); //solarites from first 8 pools
+  let solaritesDistributed = solarite.toBigN(10 * timePassed * 5000 / 2592000); //solarites from first 8 pools
   let starttimePool2 = solarite.toBigN(await solarite.contracts.ycrvUNIV_pool.methods.starttime().call()).toNumber();
   timePassed = now["timestamp"] - starttime;
-  let pool2Solarites = solarite.toBigN(timePassed * 6300 / 864000); // solarites from second pool. note: just accounts for first week
+  let pool2Solarites = solarite.toBigN(timePassed * 25000 / 2592000); // solarites from second pool. note: just accounts for first week
   let circulating = pool2Solarites.plus(solaritesDistributed).times(scalingFactor).div(10**36).toFixed(2)
   return circulating
 }

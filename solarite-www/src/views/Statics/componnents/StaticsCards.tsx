@@ -167,7 +167,7 @@ const StaticsCard: React.FC<StaticsCardProps> = ({ farm, price }) => {
 
       if (token === "uni_lp") {
         // need to update this url after uni_lp pool deployed
-        const UNI_TOKEN_ADDR = "0xEbC1E9a5D9E2FB9e5c5981b12D2062512D2847BE";
+        const UNI_TOKEN_ADDR = "0x7bc3a77b1b8daa4bf4b38c710119b932c5b27925";
         const totalyCRVInUniswapPair =
           (await solarite.contracts["ycrv"].methods
             .balanceOf(UNI_TOKEN_ADDR)
