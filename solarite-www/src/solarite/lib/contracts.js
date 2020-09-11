@@ -75,7 +75,7 @@ export class Contracts {
     this.ewtb_pool = new this.web3.eth.Contract(EWTBPoolJson.abi);
     this.pylon_pool = new this.web3.eth.Contract(PYLONPoolJson.abi);
     this.ycrvpylonlp_pool = new this.web3.eth.Contract(YCRVPYLONLPPoolJson.abi);
-    // this.zombie_pool = new this.web3.eth.Contract(ZOMBIEPoolJson.abi);
+    this.zombie_pool = new this.web3.eth.Contract(ZOMBIEPoolJson.abi);
     this.pylonlp_pool = new this.web3.eth.Contract(PYLONLPPoolJson.abi);
 
     // new
@@ -103,7 +103,7 @@ export class Contracts {
     this.ewtb = new this.web3.eth.Contract(ERC20Json.abi);
     this.pylon = new this.web3.eth.Contract(ERC20Json.abi);
     this.ycrvpylonlp = new this.web3.eth.Contract(ERC20Json.abi);
-    // this.zombie = new this.web3.eth.Contract(ERC20Json.abi);
+    this.zombie = new this.web3.eth.Contract(ERC20Json.abi);
     this.pylonlp = new this.web3.eth.Contract(ERC20Json.abi);
 
     // new 
@@ -152,7 +152,7 @@ export class Contracts {
       { contract: this.ewtb_pool, json: EWTBPoolJson },
       { contract: this.pylon_pool, json: PYLONPoolJson },
       { contract: this.ycrvpylonlp_pool, json: YCRVPYLONLPPoolJson },
-      // { contract: this.zombie_pool, json: ZOMBIEPoolJson },
+      { contract: this.zombie_pool, json: ZOMBIEPoolJson },
       { contract: this.pylonlp_pool, json: PYLONLPPoolJson },
       // { contract: this.comp_pool, json: COMPPoolJson },
       
@@ -188,7 +188,7 @@ export class Contracts {
     this.ewtb.options.address = addressMap["EWTB"];
     this.pylon.options.address = addressMap["PYLON"];
     this.ycrvpylonlp.options.address = addressMap["YCRVPYLONLP"];
-    // this.zombie.options.address = addressMap["ZOMBIE"];
+    this.zombie.options.address = addressMap["ZOMBIE"];
     this.pylonlp.options.address = addressMap["PYLONLP"];
 
     this.ycrv.options.address = addressMap["YCRV"];
@@ -214,7 +214,7 @@ export class Contracts {
       {"tokenAddr": this.ewtb.options.address, "poolAddr": this.ewtb_pool.options.address},
       {"tokenAddr": this.pylon.options.address, "poolAddr": this.pylon_pool.options.address},
       {"tokenAddr": this.ycrvpylonlp.options.address, "poolAddr": this.ycrvpylonlp_pool.options.address},
-      // {"tokenAddr": this.zombie.options.address, "poolAddr": this.zombie_pool.options.address},
+      {"tokenAddr": this.zombie.options.address, "poolAddr": this.zombie_pool.options.address},
       {"tokenAddr": this.pylonlp.options.address, "poolAddr": this.pylonlp_pool.options.address},
       // {"tokenAddr": this.btc.options.address, "poolAddr": this.btc_pool.options.address},
       // {"tokenAddr": this.yalink.options.address, "poolAddr": this.yalink_pool.options.address},
