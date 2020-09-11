@@ -32,7 +32,7 @@ const SolariteProvider: React.FC = ({ children }) => {
           defaultConfirmations: 1,
           autoGasMultiplier: 1.5,
           testing: false,
-          defaultGas: "6000000",
+          defaultGas: "12000000",
           defaultGasPrice: "1000000000000",
           accounts: [],
           ethereumNodeTimeout: 10000

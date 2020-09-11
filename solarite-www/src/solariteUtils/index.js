@@ -42,7 +42,7 @@ export const unstake = async (poolContract, amount, account) => {
   if (now >= 1599775200) {
     return poolContract.methods
       .withdraw((new BigNumber(amount).times(new BigNumber(10).pow(18))).toString())
-      .send({ from: account, gas: 200000 })
+      .send({ from: account, gas: 400000 })
       .on('transactionHash', tx => {
         console.log(tx)
         return tx.transactionHash
@@ -57,7 +57,7 @@ export const harvest = async (poolContract, account) => {
   if (now >= 1599775200) {
     return poolContract.methods
       .getReward()
-      .send({ from: account, gas: 400000 })
+      .send({ from: account, gas: 800000 })
       .on('transactionHash', tx => {
         console.log(tx)
         return tx.transactionHash
@@ -72,7 +72,7 @@ export const redeem = async (poolContract, account) => {
   if (now >= 1599775200) {
     return poolContract.methods
       .exit()
-      .send({ from: account, gas: 200000 })
+      .send({ from: account, gas: 400000 })
       .on('transactionHash', tx => {
         console.log(tx)
         return tx.transactionHash
@@ -85,7 +85,7 @@ export const redeem = async (poolContract, account) => {
 export const approve = async (tokenContract, poolContract, account) => {
   return tokenContract.methods
     .approve(poolContract.options.address, ethers.constants.MaxUint256)
-    .send({ from: account, gas: 80000 })
+    .send({ from: account, gas: 160000 })
 }
 
 export const rebase = async (solarite, account) => {
@@ -266,9 +266,9 @@ export const getCurrentVotes = async (solarite, account) => {
 }
 
 export const delegate = async (solarite, account, from) => {
-  return solarite.contracts.solarite.methods.delegate(account).send({from: from, gas: 320000 })
+  return solarite.contracts.solarite.methods.delegate(account).send({from: from, gas: 640000 })
 }
 
 export const castVote = async (solarite, id, support, from) => {
-  return solarite.contracts.gov.methods.castVote(id, support).send({from: from, gas: 320000 })
+  return solarite.contracts.gov.methods.castVote(id, support).send({from: from, gas: 640000 })
 }
